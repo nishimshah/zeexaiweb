@@ -1,0 +1,450 @@
+import React, { useEffect, lazy, Suspense, useState, useCallback } from 'react';
+import Hero from '@/components/home/Hero';
+import Features from '@/components/home/Features';
+import ServiceOfferings from '@/components/home/ServiceOfferings';
+import Industries from '@/components/home/Industries';
+import Achievements from '@/components/home/Achievements';
+import TrustedBy from '@/components/home/TrustedBy';
+import Testimonials from '@/components/home/Testimonials';
+import LetsTalk from '@/components/home/LetsTalk';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+
+// Remove motion imports and use more efficient IntersectionObserver directly
+const useIntersectionObserver = (options = {}) => {
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  const setObserverRef = useCallback((node: HTMLDivElement | null) => {
+    if (node !== null) {
+      setRef(node);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (ref) {
+      const observer = new IntersectionObserver(([entry]) => {
+        setIsInView(entry.isIntersecting);
+      }, { threshold: 0.1, rootMargin: '200px 0px', ...options });
+      
+      observer.observe(ref);
+      
+      return () => {
+        if (ref) observer.unobserve(ref);
+      };
+    }
+  }, [ref, options]);
+
+  return [setObserverRef as (node: HTMLDivElement | null) => void, isInView];
+};
+
+// Use dynamic import with prefetch hint
+const SolutionsPreview = lazy(() => import(
+  /* webpackPrefetch: true */
+  /* webpackChunkName: "solutions-preview" */ 
+  '@/components/home/SolutionsPreview'
+));
+
+// Memoized blog post component 
+interface BlogPost {
+  link: string;
+  image: string;
+  title: string;
+  date: string;
+  description: string;
+}
+
+const BlogPostCard: React.FC<{ post: BlogPost }> = React.memo(({ post }) => (
+  <div className="group h-full">
+    <Link to={post.link} className="flex flex-col h-full bg-white rounded-xl border border-[#E2E8F0] overflow-hidden hover:border-[#2563EB] hover:shadow-xl transition-all duration-300">
+      <div className="relative aspect-video overflow-hidden bg-gray-100">
+        <OptimizedImage 
+          src={post.image} 
+          alt={post.title} 
+          className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+          width={500}
+          height={300}
+        />
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-[#1E3A8A] text-[10px] font-black uppercase tracking-widest rounded border border-[#E2E8F0]">
+            Intel Report
+          </span>
+        </div>
+      </div>
+      <div className="p-8 flex flex-col flex-grow">
+        <div className="flex items-center gap-2 mb-4 text-[#2563EB] text-[10px] font-black uppercase tracking-widest">
+          <span>{post.date}</span>
+        </div>
+        <h3 className="text-xl font-black mb-4 text-[#0F172A] uppercase tracking-tight leading-tight group-hover:text-[#2563EB] transition-colors">
+          {post.title}
+        </h3>
+        <p className="text-[#475569] text-sm leading-relaxed line-clamp-3 mb-8 font-medium">
+          {post.description}
+        </p>
+        <div className="mt-auto flex items-center text-[#1E3A8A] text-xs font-black uppercase tracking-widest group-hover:gap-3 transition-all">
+          View Protocol
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+      </div>
+    </Link>
+  </div>
+));
+
+// Animation component to reduce code duplication
+const FadeInSection = ({ children, delay = 0, className = "" }) => {
+  const [setObserverRef, isVisible] = useIntersectionObserver() as [(node: HTMLDivElement | null) => void, boolean];
+  
+  return (
+    <div 
+      ref={(node) => setObserverRef(node)}
+      className={`transition-all duration-700 ${className} ${isVisible 
+        ? 'opacity-100 translate-y-0' 
+        : 'opacity-0 translate-y-8'}`}
+      style={{ 
+        transitionDelay: `${delay}ms`,
+        willChange: 'opacity, transform'
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const Index = () => {
+  // Preload critical images for better performance
+  React.useEffect(() => {
+    // Preload critical images
+    const criticalImages = [
+      'https://images.unsplash.com/photo-1488229297570-58520851e868?w=500&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1563790617029-80a94f39b35e?w=500&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?w=500&auto=format&fit=crop&q=80'
+    ];
+    
+    criticalImages.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
+    });
+  }, []);
+
+  // Supported by logos data - optimized versions
+  const supportedBy = [
+    {
+      name: "IIT Madras",
+      logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/400px-IIT_Madras_Logo.svg.png",
+      url: "https://www.iitm.ac.in"
+    },
+    {
+      name: "Nirmaan (Pre-Incubator, IITM)",
+      logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png?w=200&h=80&fit=contain&q=80",
+      url: "https://nirmaan.iitm.ac.in"
+    },
+    {
+      name: "AWS for Startups",
+      logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png?w=200&h=80&fit=contain&q=80",
+      url: "https://aws.amazon.com/startups"
+    },
+    {
+      name: "NVIDIA Inception",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQyI3Qf_YPBBh5ZVZxIg3YpbKpQYuIdZfg9A&s&w=200&h=80&fit=contain&q=80",
+      url: "https://www.nvidia.com/en-in/startups/"
+    }
+  ];
+
+  // Blog posts data - optimized images
+  const blogPosts = [
+    {
+      link: "/blog/ai-advancements",
+      image: "https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "AI Advancements in Modern Surveillance",
+      date: "April 15, 2025",
+      description: "Explore how artificial intelligence is revolutionizing surveillance systems and improving security outcomes."
+    },
+    {
+      link: "/blog/privacy-security",
+      image: "https://images.unsplash.com/photo-1617772718763-f4ddab89311b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Balancing Privacy with Security in AI Surveillance",
+      date: "April 8, 2025",
+      description: "How modern AI-powered security systems protect privacy while enhancing safety measures."
+    },
+    {
+      link: "/blog/future-trends",
+      image: "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1",
+      title: "5 Future Trends in AI Security for 2025",
+      date: "April 1, 2025",
+      description: "Discover emerging trends in AI security technology and how they will shape the future of surveillance."
+    }
+  ];
+
+  // Implementation steps - extracted as a constant to improve readability
+  const implementationSteps = [
+    {
+      title: "Discovery Audit",
+      description: "Analyze current setup and define surveillance goals.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      )
+    },
+    {
+      title: "Solution Architecture",
+      description: "Design a tailored, AI-ready surveillance blueprint.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      )
+    },
+    {
+      title: "Precision Deployment",
+      description: "Hardware/software installation with zero downtime",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+        </svg>
+      )
+    },
+    {
+      title: "Validation Testing",
+      description: "Test performance, accuracy, and system stability.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      )
+    },
+    {
+      title: "Ongoing Excellence",
+      description: "Provide 24/7 monitoring, updates, and support.",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
+    }
+  ];
+
+  // Connection line reference - improved implementation workflow
+  const [lineRef, lineVisible] = useIntersectionObserver();
+
+  return (
+    <div className="overflow-hidden">
+      <Hero />
+      
+      <Features />
+      
+      <ServiceOfferings />
+      
+      <Suspense fallback={
+        <div className="min-h-[300px] flex items-center justify-center bg-gray-50 rounded-xl my-12">
+          <div className="animate-pulse flex flex-col items-center">
+            <div className="h-8 w-8 bg-blue-200 rounded-full mb-4"></div>
+            <div className="h-4 bg-blue-200 rounded w-32 mb-2"></div>
+            <div className="h-4 bg-blue-200 rounded w-24"></div>
+          </div>
+        </div>
+      }>
+        <SolutionsPreview />
+      </Suspense>
+      
+      <Industries />
+      
+      <Achievements />
+      
+      <TrustedBy />
+      
+      <Testimonials />
+      
+      <LetsTalk />
+      
+      {/* Implementation Workflow Section - Fixed visibility issues */}
+      <section className="py-24 bg-white overflow-hidden border-t border-[#E2E8F0]">
+        <div className="container-default px-8">
+          <FadeInSection className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-sm font-bold mb-4">
+              OUR METHODOLOGY
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-5">
+              Precision <span className="text-[#2563EB]">Implementation</span> Process
+            </h2>
+            <p className="text-lg text-[#475569] max-w-2xl mx-auto">
+              A meticulously crafted 5-phase approach ensuring flawless integration of our AI surveillance solutions.
+            </p>
+          </FadeInSection>
+
+          <div className="relative">
+            {/* Animated connecting line - simpler animation */}
+            <div 
+              ref={lineRef[0]}
+              className={`hidden lg:block absolute left-0 right-0 top-1/2 h-0.5 bg-gray-200 z-0 transition-transform duration-1000 origin-left ${
+                lineVisible ? 'scale-x-100' : 'scale-x-0'
+              }`}
+            ></div>
+            
+            {/* Progress dots */}
+            <div className="hidden lg:flex absolute left-0 right-0 top-1/2 justify-between -mt-1 z-0">
+              {[0, 1, 2, 3, 4, 5].map((dot) => (
+                <div 
+                  key={dot}
+                  className={`w-3 h-3 rounded-full ${dot < 5 ? 'bg-blue-600' : 'bg-gray-200'}`}
+                ></div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 relative z-10">
+              {implementationSteps.map((step, index) => (
+                <FadeInSection key={index} delay={index * 150} className="h-full">
+                  <div className="flex flex-col items-center h-full group">
+                    {/* Connector arrow (desktop only) */}
+                    {index < 4 && (
+                      <div className="hidden lg:block absolute left-full top-1/2 w-16 h-1 -mt-px overflow-hidden">
+                        <div className={`h-full bg-gradient-to-r from-gray-200 to-gray-100 transition-transform duration-700 ${
+                          lineVisible ? 'translate-x-0' : '-translate-x-full'
+                        }`} style={{ transitionDelay: `${index * 150 + 300}ms` }}>
+                          <svg 
+                            className="absolute right-0 top-1/2 -mt-2 text-gray-200" 
+                            width="16" 
+                            height="16" 
+                            viewBox="0 0 16 16"
+                          >
+                            <path 
+                              fill="currentColor" 
+                              d="M7.293 11.707a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L8 9.586 5.707 7.293a1 1 0 00-1.414 1.414l3 3z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step indicator */}
+                    <div className="w-16 h-16 rounded-xl mb-6 flex items-center justify-center text-white shadow-md bg-[#1E3A8A] group-hover:bg-[#2563EB] transition-colors duration-300">
+                      {step.icon}
+                    </div>
+                    
+                    {/* Step card */}
+                    <div className="bg-white rounded-xl p-8 border border-[#E2E8F0] group-hover:border-[#2563EB] transition-all duration-300 text-center w-full h-full relative overflow-hidden group-hover:shadow-xl">
+                      <div className="relative z-10">
+                        <span className="inline-block text-xs font-bold tracking-wider text-[#2563EB] mb-2 uppercase">
+                          Phase 0{index + 1}
+                        </span>
+                        <h3 className="text-xl font-bold text-[#0F172A] mb-3">{step.title}</h3>
+                        <p className="text-[#475569] text-sm leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </FadeInSection>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Call to Action Section - Improved contrast and visibility */}
+      <section className="py-24 bg-[#1E3A8A] text-white relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="container-default text-center relative z-10"
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Secure Your Future?</h2>
+            <p className="text-xl mb-10 text-white/80">
+              Our team of experts is ready to help you implement enterprise-grade AI security solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link 
+                to="/contact" 
+                className="px-10 py-5 bg-white text-[#1E3A8A] font-bold rounded-lg hover:bg-gray-100 transition-all shadow-lg"
+              >
+                REQUEST A CONSULTATION
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Latest Blog Posts Preview - Fixed visibility */}
+      <section className="py-24 bg-[#F4F7FB]">
+        <div className="container-default px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+            <FadeInSection>
+              <span className="inline-block px-4 py-2 bg-white text-[#1E3A8A] rounded-full text-sm font-bold mb-4 border border-[#E2E8F0]">
+                CASE STUDIES
+              </span>
+              <h2 className="text-3xl font-bold text-[#0F172A] mb-2">Latest Insights</h2>
+              <p className="text-[#475569]">Stay updated with the latest in AI security technology.</p>
+            </FadeInSection>
+            <FadeInSection delay={200}>
+              <Link 
+                to="/blog" 
+                className="inline-flex items-center text-[#2563EB] font-bold group"
+              >
+                VIEW ALL INSIGHTS
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </FadeInSection>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.map((post, index) => (
+              <FadeInSection key={index} delay={index * 100}>
+                <BlogPostCard post={post} />
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Supported By Section - now just before the footer */}
+      <section className="py-24 bg-white">
+        <div className="container-default px-8">
+          <FadeInSection className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-sm font-bold mb-4">
+              PARTNERSHIPS
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-5">
+              Supported by <span className="text-[#2563EB]">Industry Leaders</span>
+            </h2>
+            <p className="text-lg text-[#475569] max-w-2xl mx-auto">
+              Our technology is recognized and supported by premier institutions.
+            </p>
+          </FadeInSection>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            {supportedBy.map((partner, index) => (
+              <FadeInSection key={index} delay={index * 100}>
+                <a
+                  href={partner.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block bg-white border border-[#E2E8F0] rounded-xl p-8 hover:shadow-lg transition-all"
+                >
+                  <div className="h-20 flex items-center justify-center p-2">
+                    <OptimizedImage 
+                      src={partner.logo} 
+                      alt={partner.name} 
+                      className="max-h-full max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all"
+                      width={200}
+                      height={80}
+                    />
+                  </div>
+                </a>
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// Use memo to prevent unnecessary re-renders
+export default React.memo(Index);
