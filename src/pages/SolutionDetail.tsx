@@ -923,117 +923,147 @@ const ServiceDetail = () => {
   if (!service) {
     return (
       <Layout showFooter={false}>
-        <div className="container py-20 text-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+        <div className="container-default py-20 text-center px-6 bg-white">
+          <h1 className="text-2xl md:text-3xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter">Service Profile Not Found</h1>
+          <p className="mb-8 text-base text-[#475569] font-medium max-w-xl mx-auto italic">The operational intelligence for this service ID could not be retrieved from the central registry.</p>
+          <Link 
+            to="/services" 
+            className="inline-flex items-center px-6 py-3 bg-[#2563EB] text-white font-black rounded-xl hover:bg-blue-700 transition-all uppercase tracking-widest text-[10px]"
           >
-            <h1 className="text-4xl font-bold mb-6 text-gray-900">Service Not Found</h1>
-            <p className="mb-8 text-lg text-gray-600">Sorry, the service you're looking for doesn't exist or has been moved.</p>
-            <Link 
-              to="/services" 
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all"
-            >
-              View All S    <Layout showFooter={false}>
+            Return to Services Registry
+          </Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  const ServiceIcon = service.icon;
+
+  return (
+    <Layout showFooter={false}>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center justify-center bg-[#1E3A8A] overflow-hidden">
-        <div className="container-default relative z-10 px-8 text-center text-white">
+      <section className="relative min-h-[40vh] flex items-center justify-center bg-[#0a0e1a] overflow-hidden pt-20 pb-16">
+        <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-600/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="container-default relative z-10 px-6 text-center text-white">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm font-bold mb-6 backdrop-blur-sm border border-white/20"
+            className="inline-block px-3 py-1 bg-white/5 text-[#2563EB] rounded-full text-[9px] font-black uppercase tracking-widest border border-white/10 mb-6 backdrop-blur-sm shadow-xl"
           >
-            AI SECURITY SPECIALIZATION
+            AI SYSTEM PROTOCOL
           </motion.div>
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-            {service.title} <span className="text-[#2563EB]">Solutions</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight uppercase tracking-tighter">
+            {service.title.split(' ').slice(0, 2).join(' ')} <br /><span className="text-[#2563EB]">{service.title.split(' ').slice(2).join(' ')}</span>
           </h1>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto mb-12">
+          <p className="text-lg text-white/70 max-w-2xl mx-auto font-medium leading-relaxed mb-8">
             {service.description}
           </p>
-          <Link 
-            to="/contact" 
-            className="px-12 py-6 bg-white text-[#1E3A8A] font-bold rounded-lg shadow-xl hover:bg-gray-100 transition-all uppercase tracking-widest"
-          >
-            Request a Demo
-          </Link>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              to="/contact" 
+              className="px-8 py-4 bg-[#2563EB] text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl uppercase tracking-widest text-[10px]"
+            >
+              Get started now
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-[#F4F7FB] border-b border-[#E2E8F0]">
-        <div className="container-default px-8">
+      <section className="py-10 bg-white border-b border-[#E2E8F0]">
+        <div className="container-default px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {service.stats.map((stat, index) => (
+            {service.stats.map((stat: any, index: number) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-xl border border-[#E2E8F0] text-center shadow-sm"
+                className="bg-white p-6 rounded-2xl border border-[#E2E8F0] text-center shadow-md hover:shadow-xl transition-all"
               >
-                <div className="text-4xl font-black text-[#1E3A8A] mb-2">
+                <div className="text-3xl font-black text-[#0a0e1a] mb-1 uppercase tracking-tighter">
                   {stat.value}
                 </div>
-                <div className="text-[#475569] font-bold uppercase tracking-wider text-sm">{stat.label}</div>
+                <div className="text-[#2563EB] font-black uppercase tracking-widest text-[9px]">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
       
+      
       {/* Main Content & Sidebar Section */}
-      <section className="py-24 bg-white">
-        <div className="container-default px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <section className="py-20 bg-white">
+        <div className="container-default px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Main Content */}
             <div className="lg:col-span-8">
-              <div className="rounded-2xl border border-[#E2E8F0] overflow-hidden mb-12 shadow-sm bg-[#F4F7FB]">
+              <div className="overflow-hidden rounded-3xl shadow-xl mb-10 border border-[#E2E8F0] relative group">
                 <img 
                   src={service.image} 
                   alt={service.title}
-                  className="w-full h-auto object-cover aspect-video"
+                  className="w-full h-auto object-cover aspect-video grayscale group-hover:grayscale-0 transition-all duration-700"
                 />
               </div>
               
-              <div 
-                className="prose prose-lg max-w-none prose-headings:text-[#0F172A] prose-headings:font-bold prose-p:text-[#475569] prose-p:leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: service.content }} 
-              />
+              <div className="prose prose-xl max-w-none industrial-prose-detail">
+                <style>{`
+                  .industrial-prose-detail h2 {
+                    font-size: 2rem;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: -0.025em;
+                    color: #0F172A;
+                    margin-bottom: 1.5rem;
+                    line-height: 1.1;
+                  }
+                  .industrial-prose-detail h4 {
+                    font-size: 1rem;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    color: #2563EB;
+                    margin-bottom: 0.75rem;
+                  }
+                  .industrial-prose-detail p {
+                    font-size: 1rem;
+                    color: #475569;
+                    line-height: 1.7;
+                    margin-bottom: 1.5rem;
+                  }
+                `}</style>
+                <div dangerouslySetInnerHTML={{ __html: service.content }} />
+              </div>
             </div>
             
             {/* Sidebar */}
-            <div className="lg:col-span-4 space-y-8">
-              {/* Benefits Card */}
-              <div className="bg-[#1E3A8A] rounded-2xl p-8 text-white shadow-xl">
+            <div className="lg:col-span-4 space-y-8 sticky top-24">
+              <div className="bg-[#0a0e1a] rounded-3xl p-8 text-white border border-white/5 shadow-xl">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-                    <ServiceIcon className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                    <ServiceIcon className="h-6 w-6 text-[#2563EB]" />
                   </div>
-                  <h3 className="text-xl font-bold uppercase tracking-tight">Key Benefits</h3>
+                  <h3 className="text-lg font-black uppercase tracking-tighter">Key Protocol</h3>
                 </div>
                 
-                <div className="space-y-4 mb-10">
-                  {service.benefits.map((benefit, i) => (
-                    <div key={i} className="flex items-start gap-3">
+                <ul className="space-y-4 mb-8">
+                  {service.benefits.map((benefit: string, i: number) => (
+                    <li key={i} className="flex items-start gap-3">
                       <div className="mt-1">
-                        <Check className="w-5 h-5 text-[#2563EB]" />
+                        <Check className="w-4 h-4 text-[#2563EB]" />
                       </div>
-                      <span className="text-white/90 font-medium">{benefit}</span>
-                    </div>
+                      <span className="text-xs font-bold text-white/70">{benefit}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
                 
                 <Link 
                   to="/contact" 
-                  className="w-full flex items-center justify-center px-6 py-4 bg-[#2563EB] text-white font-bold rounded-lg hover:bg-white hover:text-[#1E3A8A] transition-all uppercase tracking-widest"
+                  className="w-full h-12 flex items-center justify-center bg-[#2563EB] text-white font-black rounded-xl hover:bg-blue-700 transition-all uppercase tracking-widest text-[10px] shadow-lg"
                 >
-                  Consult an Expert
+                  Consult Expert
                 </Link>
               </div>
               
-              {/* Other Services */}
-              <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0] shadow-sm">
-                <h3 className="text-xl font-bold text-[#0F172A] mb-8">Related Solutions</h3>
-                <div className="space-y-6">
+              <div className="bg-white rounded-3xl p-8 border border-[#E2E8F0] shadow-lg">
+                <h3 className="text-lg font-black mb-6 text-[#0F172A] uppercase tracking-tighter">Related Intelligence</h3>
+                <div className="space-y-4">
                   {Object.entries(servicesDetails)
                     .filter(([key]) => key !== serviceId)
                     .slice(0, 3)
@@ -1043,15 +1073,14 @@ const ServiceDetail = () => {
                         <Link 
                           key={key}
                           to={`/services/${key}`} 
-                          className="flex items-center gap-4 group"
+                          className="flex items-center gap-3 group transition-all"
                         >
-                          <div className="w-12 h-12 rounded-lg bg-[#F4F7FB] border border-[#E2E8F0] flex items-center justify-center group-hover:bg-[#1E3A8A] group-hover:text-white transition-all">
-                            <OtherIcon className="h-5 w-5 text-[#1E3A8A] group-hover:text-white" />
+                          <div className="w-10 h-10 rounded-xl bg-[#F4F7FB] flex items-center justify-center border border-[#E2E8F0] group-hover:border-[#2563EB] transition-all">
+                            <OtherIcon className="h-5 w-5 text-[#2563EB]" />
                           </div>
                           <div>
-                            <h4 className="font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-all text-sm leading-tight">{otherService.title}</h4>
+                            <h4 className="text-[10px] font-black text-[#0F172A] uppercase tracking-widest group-hover:text-[#2563EB] transition-all leading-tight">{otherService.title}</h4>
                           </div>
-                          <ArrowRight className="w-4 h-4 text-[#E2E8F0] group-hover:text-[#1E3A8A] ml-auto transition-all" />
                         </Link>
                       );
                     })}
@@ -1063,32 +1092,27 @@ const ServiceDetail = () => {
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 bg-[#F4F7FB]">
+      <section className="py-20 bg-[#F4F7FB] rounded-[2.5rem] mx-6 mb-20 border border-[#E2E8F0]">
         <div className="container-default px-8">
-          <div className="text-center mb-20">
-            <span className="inline-block px-4 py-2 bg-white text-[#1E3A8A] rounded-full text-sm font-bold mb-4 border border-[#E2E8F0]">
-              CORE COMPETENCIES
+          <div className="text-center mb-16">
+            <span className="inline-block px-3 py-1 bg-white text-[#2563EB] rounded-full text-[9px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-6">
+              CORE CAPABILITIES
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">Industrial Features</h2>
-            <p className="text-lg text-[#475569] max-w-3xl mx-auto">
-              Proprietary AI features optimized for {service.title.toLowerCase()} environments.
-            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-6 uppercase tracking-tighter">INDUSTRIAL <span className="text-[#2563EB]">FEATURES</span></h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {service.features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-xl overflow-hidden border border-[#E2E8F0] shadow-sm hover:shadow-xl transition-all group">
-                <div className="h-48 overflow-hidden bg-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {service.features.map((feature: any, index: number) => (
+              <div key={index} className="bg-white rounded-3xl overflow-hidden border border-[#E2E8F0] shadow-lg hover:shadow-xl transition-all group p-8">
+                <div className="aspect-video rounded-2xl overflow-hidden mb-8 bg-[#F4F7FB]">
                   <img 
                     src={feature.image} 
                     alt={feature.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0"
                   />
                 </div>
-                <div className="p-8">
-                  <h3 className="text-xl font-bold text-[#0F172A] mb-4 group-hover:text-[#2563EB] transition-colors">{feature.title}</h3>
-                  <p className="text-[#475569] leading-relaxed">{feature.description}</p>
-                </div>
+                <h3 className="text-xl font-black text-[#0F172A] mb-3 uppercase tracking-tight group-hover:text-[#2563EB] transition-colors">{feature.title}</h3>
+                <p className="text-[#475569] text-xs font-medium leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -1096,27 +1120,24 @@ const ServiceDetail = () => {
       </section>
       
       {/* Workflow Section */}
-      <section className="py-24 bg-white">
-        <div className="container-default px-8">
-          <div className="text-center mb-20">
-            <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-sm font-bold mb-4">
-              DEPLOYMENT PROCESS
+      <section className="py-20 bg-white overflow-hidden">
+        <div className="container-default px-6 text-center mb-12">
+           <span className="inline-block px-3 py-1 bg-[#F4F7FB] text-[#2563EB] rounded-full text-[9px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-6">
+              MISSION EXECUTION
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">How We Implement</h2>
-            <p className="text-lg text-[#475569] max-w-3xl mx-auto">
-              Meticulous engineering workflow for {service.title.toLowerCase()} systems.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {service.workflow.slice(0, 6).map((step, index) => (
-              <div key={index} className="relative flex flex-col items-start bg-white p-8 rounded-xl border border-[#E2E8F0] shadow-sm">
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#1E3A8A] text-white flex items-center justify-center font-black text-xl rounded-lg shadow-lg">
+            <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] uppercase tracking-tighter mb-6 leading-none">HOW WE <span className="text-[#2563EB]">DEPLOY</span></h2>
+        </div>
+        
+        <div className="container-default px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {service.workflow.slice(0, 6).map((step: any, index: number) => (
+              <div key={index} className="relative flex flex-col items-center text-center p-8 rounded-3xl border border-[#E2E8F0] hover:shadow-xl transition-all">
+                <div className="w-12 h-12 bg-[#0a0e1a] text-white flex items-center justify-center font-black text-lg rounded-xl mb-8 shadow-lg border border-white/10 transition-all">
                   {index + 1}
                 </div>
-                <div className="text-4xl mb-6 pt-2">{step.icon}</div>
-                <h3 className="text-xl font-bold text-[#0F172A] mb-4">{step.title}</h3>
-                <p className="text-[#475569] leading-relaxed">{step.description}</p>
+                <div className="text-4xl mb-6">{step.icon}</div>
+                <h3 className="text-lg font-black text-[#0F172A] mb-4 uppercase tracking-tight">{step.title}</h3>
+                <p className="text-xs font-medium text-[#475569] leading-relaxed">{step.description}</p>
               </div>
             ))}
           </div>
@@ -1124,16 +1145,17 @@ const ServiceDetail = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-[#1E3A8A] text-white">
-        <div className="container-default px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 uppercase tracking-tight">Ready for Implementation?</h2>
-          <p className="text-xl mb-12 text-white/80 max-w-2xl mx-auto leading-relaxed">
+      <section className="py-24 bg-[#0a0e1a] text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-600/10 blur-[80px] rounded-full translate-x-1/2"></div>
+        <div className="container-default px-6 text-center relative z-10">
+          <h2 className="text-3xl md:text-6xl font-black mb-8 uppercase tracking-tighter leading-none">READY TO <span className="text-[#2563EB]">UPGRADE?</span></h2>
+          <p className="text-lg md:text-xl text-white/60 mb-10 max-w-xl mx-auto font-medium leading-relaxed">
             Scalable, industrial-grade {service.title} specialized for your organization's unique requirements.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex justify-center">
             <Link 
               to="/contact" 
-              className="px-12 py-6 bg-white text-[#1E3A8A] font-bold rounded-lg shadow-xl hover:bg-gray-100 transition-all uppercase tracking-widest"
+              className="px-10 py-5 bg-[#2563EB] text-white font-black rounded-2xl shadow-2xl hover:bg-blue-700 transition-all uppercase tracking-widest text-sm"
             >
               Get started now
             </Link>

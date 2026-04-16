@@ -37,124 +37,120 @@ const SolutionsPreview = () => {
       id: 1,
       title: "Shops & Supermarkets",
       description: "Retail security solutions with theft prevention and customer behavior analytics.",
-      icon: <ShoppingCart className="text-green-600" size={24} />,
-      image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=400&h=320&fit=crop&auto=format&q=80",
+      icon: <ShoppingCart className="text-[#10b981]" size={20} />,
+      image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=800&auto=format&fit=crop&q=80",
       link: "/services/retail-wholesale-high-risk",
-      colorClass: "group-hover:bg-green-50",
-      textColor: "group-hover:text-green-300",
-      delay: 0.1,
+      bgColor: "bg-[#f0fdf4]"
     },
     {
       id: 2,
       title: "Traffic Monitoring",
       description: "AI-powered traffic management with real-time analytics and violation detection.",
-      icon: <Car className="text-red-600" size={24} />,
-      image: "https://images.unsplash.com/photo-1597762333765-cbcd63dd8acc?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      icon: <Car className="text-[#ef4444]" size={20} />,
+      image: "https://images.unsplash.com/photo-1597762333765-cbcd63dd8acc?w=800&auto=format&fit=crop&q=80",
       link: "/services/traffic-public-safety",
-      colorClass: "group-hover:bg-red-50",
-      textColor: "group-hover:text-red-300",
-      delay: 0.2,
+      bgColor: "bg-[#fef2f2]"
     },
     {
       id: 3,
       title: "Corporate & Residential",
       description: "Surveillance for homes and offices with intelligent alerts and remote access.",
-      icon: <Home className="text-blue-600" size={24} />,
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=320&fit=crop&auto=format&q=80",
+      icon: <Home className="text-[#3b82f6]" size={20} />,
+      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80",
       link: "/services/corporate-residential",
-      colorClass: "group-hover:bg-blue-50",
-      textColor: "group-hover:text-blue-300",
-      delay: 0.3,
+      bgColor: "bg-[#eff6ff]"
     },
     {
       id: 4,
       title: "Industrial Surveillance",
       description: "Surveillance systems for factories and warehouses to ensure safety.",
-      icon: <Building2 className="text-gray-700" size={24} />,
-      image: "https://plus.unsplash.com/premium_photo-1661962513763-05ff8b984285?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      icon: <Building2 className="text-[#334155]" size={20} />,
+      image: "https://plus.unsplash.com/premium_photo-1661962513763-05ff8b984285?w=800&auto=format&fit=crop&q=80",
       link: "/services/traffic-public-safety",
-      colorClass: "group-hover:bg-gray-100",
-      textColor: "group-hover:text-gray-400",
-      delay: 0.4,
+      bgColor: "bg-[#f8fafc]"
     },
   ];
   
   return (
-    <section className="py-24 bg-[#F4F7FB]" ref={ref}>
-      <div className="container-default px-8">
+    <section className="py-16 bg-white" ref={ref}>
+      <div className="container-default px-6">
         <motion.div 
           initial="hidden"
           animate={controls}
           variants={fadeInUp}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <motion.span 
             variants={fadeInUp}
-            className="inline-block px-4 py-2 bg-white text-[#1E3A8A] rounded-full text-sm font-bold mb-4 border border-[#E2E8F0]"
+            className="inline-block px-3 py-1 bg-[#F4F7FB] text-[#2563EB] rounded-full text-[9px] font-black uppercase tracking-widest mb-4 border border-[#E2E8F0]"
           >
-            SOLUTIONS
+            Industry Services
           </motion.span>
           <motion.h2 
             variants={fadeInUp}
-            className="text-4xl font-bold text-[#0F172A] mb-5 max-w-3xl mx-auto"
+            className="text-2xl md:text-3xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none"
           >
             AI Security for <span className="text-[#2563EB]">Every Environment</span>
           </motion.h2>
           <motion.p 
             variants={fadeInUp}
-            className="text-lg text-[#475569] max-w-2xl mx-auto"
+            className="text-base text-[#475569] max-w-2xl mx-auto font-medium"
           >
-            Customized surveillance solutions that adapt to your specific security requirements and infrastructure.
+            Transforming workplaces and cities with intelligent safety and management powered by AI and data.
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {solutionCards.map((card, index) => (
-            <div 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {solutionCards.map((card) => (
+            <Link 
               key={card.id}
-              className="bg-white rounded-xl overflow-hidden border border-[#E2E8F0] shadow-sm hover:shadow-xl transition-all group"
+              to={card.link}
+              className="relative aspect-[3/4] rounded-2xl overflow-hidden group shadow-lg"
             >
-              <div className="aspect-[4/3] overflow-hidden">
+              {/* Image with overlay */}
+              <div className="absolute inset-0 z-0">
                 <OptimizedImage 
                   src={card.image} 
                   alt={card.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  width={400}
-                  height={320}
+                  className="w-full h-full object-cover grayscale opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  width={600}
+                  height={800}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
               </div>
-              <div className="p-8">
-                <div className="mb-4 text-[#2563EB]">
-                  {card.icon}
+
+              {/* Content Overlay */}
+              <div className="absolute inset-0 z-10 p-6 flex flex-col justify-between">
+                <div>
+                  <div className={`w-10 h-10 rounded-lg ${card.bgColor} flex items-center justify-center shadow-md mb-4 group-hover:scale-110 transition-transform`}>
+                    {card.icon}
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-[#0F172A] mb-3">{card.title}</h3>
-                <p className="text-[#475569] text-sm mb-6 leading-relaxed">
-                  {card.description}
-                </p>
-                <Link 
-                  to={card.link} 
-                  className="inline-flex items-center text-[#1E3A8A] font-bold text-sm uppercase tracking-wider group-hover:text-[#2563EB]"
-                >
-                  Explore Solution
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+
+                <div>
+                  <h3 className="text-lg font-black text-white mb-2 leading-tight uppercase tracking-tight group-hover:text-[#2563EB] transition-colors">{card.title}</h3>
+                  <p className="text-white/80 text-[10px] font-medium leading-relaxed group-hover:text-white transition-colors">
+                    {card.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center mt-12">
           <Link 
             to="/services" 
-            className="inline-flex items-center px-10 py-5 bg-[#1E3A8A] text-white font-bold rounded-lg shadow-lg hover:bg-[#2563EB] transition-all"
+            className="inline-flex items-center px-8 py-3 bg-[#2563EB] text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all hover:gap-3 group text-xs uppercase tracking-widest"
           >
-            VIEW ALL SERVICES
-            <ArrowRight className="ml-2 w-4 h-4" />
+            View all services
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-all" />
           </Link>
         </div>
       </div>
     </section>
   );
 };
+
 
 export default React.memo(SolutionsPreview);

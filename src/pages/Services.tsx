@@ -138,7 +138,6 @@ const services = [
 const Services = () => {
   // Preload critical images for better performance
   React.useEffect(() => {
-    // Preload first 3 images for better perceived performance
     const criticalImages = services.slice(0, 3).map(service => service.image);
     criticalImages.forEach(src => {
       const link = document.createElement('link');
@@ -151,132 +150,84 @@ const Services = () => {
 
   return (
     <Layout showFooter={false}>
-      {/* Hero Section - Matching Blog Page Style */}
-<section className="relative min-h-[70vh] flex items-center justify-center bg-navy-900 overflow-hidden opacity-0 animate-fadeIn">
-  {/* Background elements - identical to blog */}
-  <div className="absolute inset-0 overflow-hidden z-0">
-    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent opacity-20"></div>
-    <div className="absolute inset-0 bg-gradient-to-b from-navy-900/30 to-navy-900/90"></div>
-  </div>
-  
-  {/* Content container with identical sizing */}
-  <div className="container-default relative z-10 transform translate-y-4 animate-slideUp px-4 sm:px-6">
-    <div className="max-w-3xl mx-auto text-center">
-      {/* Badge - same styling as blog */}
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="inline-flex items-center gap-2 rounded-full bg-blue-500/20 px-4 py-1.5 text-sm font-medium text-blue-200 backdrop-blur-sm mb-6"
-      >
-        <Shield className="w-4 h-4" /> AI Security Services
-      </motion.div>
-      
-      {/* Title - identical sizing and gradient */}
-      <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-white mb-5 leading-tight tracking-tight">
-        Tailored <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Security Services</span>
-      </h1>
-      
-      {/* Subtitle - same text size and color */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
-      >
-        AI-powered surveillance systems designed specifically for your environment and security needs
-      </motion.p>
-      
-      {/* Buttons - identical styling and spacing */}
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-        className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
-      >
-        <Link 
-          to="/contact" 
-          className="inline-flex items-center justify-center px-6 py-3.5 sm:px-8 sm:py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 hover:shadow-lg text-sm sm:text-base"
-        >
-          Get Started
-          <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-          </svg>
-        </Link>
-        
-      </motion.div>
-    </div>
-  </div>
+      {/* Hero Section */}
+      <section className="relative min-h-[70vh] flex items-center justify-center bg-[#0a0e1a] overflow-hidden pt-32 pb-24">
+        <div className="absolute top-0 right-0 w-[50%] h-full bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="container-default relative z-10 px-8 text-center animate-scale-in">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#2563EB] backdrop-blur-sm mb-8 border border-white/10"
+          >
+            <Shield className="w-4 h-4" /> Enterprise AI Solutions
+          </motion.div>
+          
+          <h1 className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight uppercase tracking-tighter">
+            TAILORED <span className="text-[#2563EB]">SECURITY</span> <br /> SERVICES
+          </h1>
+          
+          <p className="text-xl text-white/70 max-w-3xl mx-auto font-medium leading-relaxed mb-12">
+            Industrial-grade AI surveillance systems engineered to adapt to your specific environment and critical security objectives.
+          </p>
 
-  {/* Identical animation styles */}
-  <style>{`
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .animate-fadeIn {
-      animation: fadeIn 1s ease-out forwards;
-    }
-    .animate-slideUp {
-      animation: slideUp 1.2s ease-out forwards;
-    }
-  `}</style>
-</section>
+          <Link 
+            to="/contact" 
+            className="inline-flex items-center px-12 py-6 bg-[#2563EB] text-white font-black rounded-2xl shadow-2xl hover:bg-blue-700 transition-all uppercase tracking-widest text-sm"
+          >
+            Get Started
+            <ArrowRight className="ml-3 w-5 h-5" />
+          </Link>
+        </div>
+      </section>
       
       {/* Introduction Section */}
-      <section className="py-16">
-        <div className="container-default">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-6 text-gray-900">
-              Security Tailored to <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Your Environment</span>
+      <section className="py-32 bg-white">
+        <div className="container-default px-8">
+          <div className="text-center max-w-4xl mx-auto mb-24">
+            <h2 className="text-4xl md:text-6xl font-black mb-8 text-[#0F172A] uppercase tracking-tighter leading-tight">
+              Security Optimized for <br /><span className="text-[#2563EB]">Every Sector</span>
             </h2>
-            <p className="text-xl text-gray-600">
-              Every security challenge is unique. Our AI-powered services are designed to adapt to specific environments and security needs.
+            <p className="text-xl text-[#475569] font-medium leading-relaxed">
+              Every security challenge is unique. Our AI-powered services are designed to adapt to specific environments, providing forensic accuracy and real-time response nodes.
             </p>
           </div>
           
           {/* Services Cards Preview */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
             {services.map((service, index) => (
               <div 
                 key={service.id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                className="bg-white rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden group border border-[#E2E8F0] hover:border-[#2563EB]"
               >
-                <div className="min-h-[180px] h-auto overflow-hidden relative">
+                <div className="aspect-video overflow-hidden relative">
                   <OptimizedImage 
                     src={service.image} 
                     alt={service.title} 
-                    className="w-full h-auto min-h-[180px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-100"
                     width={400}
                     height={240}
-                    priority={index < 3}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-                    <div className="p-4 md:p-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                          <service.icon className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <h3 className="text-lg md:text-2xl font-bold text-white">{service.title}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e1a]/80 to-transparent flex items-end p-8">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <service.icon className="h-6 w-6 text-[#2563EB]" />
                       </div>
+                      <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none">{service.title}</h3>
                     </div>
                   </div>
                 </div>
                 
-                <div className="p-4 md:p-6">
-                  <p className="text-gray-600 mb-3 md:mb-4 line-clamp-3 text-sm md:text-base">
+                <div className="p-10">
+                  <p className="text-[#475569] mb-8 line-clamp-3 text-sm font-medium leading-relaxed">
                     {service.description}
                   </p>
                   <Link 
                     to={`#${service.id}`} 
-                    className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors text-sm md:text-base"
+                    className="inline-flex items-center text-[#2563EB] font-black uppercase tracking-widest text-[10px] hover:gap-4 transition-all"
                   >
-                    Learn more
-                    <ArrowRight className="ml-1 w-4 h-4" />
+                    Explore Service
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -284,79 +235,73 @@ const Services = () => {
           </div>
           
           {/* Detailed Services Sections */}
-          <div className="space-y-20 md:space-y-32">
+          <div className="space-y-40">
             {services.map((service, index) => (
-              <div key={service.id} id={service.id} className="scroll-mt-24">
-                {/* Service Header with Decorative Element */}
-                <div className="flex flex-col md:flex-row items-center gap-4 mb-8">
-                  <div className="h-1 w-full md:w-auto flex-grow rounded-full bg-gradient-to-r from-blue-600 to-indigo-600"></div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-3 whitespace-nowrap">
-                    <service.icon className="h-7 w-7 md:h-8 md:w-8 text-blue-600" />
-                    {service.title}
-                  </h2>
-                  <div className="h-1 w-full md:w-auto flex-grow rounded-full bg-gradient-to-r from-indigo-600 to-blue-600"></div>
-                </div>
-                
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-10 md:mb-16">
-                  {/* Image column with enhanced styling */}
+              <div key={service.id} id={service.id} className="scroll-mt-32">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mb-16">
+                  {/* Image column */}
                   <div className={index % 2 === 0 ? 'order-none' : 'order-none lg:order-last'}>
-                    <div className="rounded-2xl overflow-hidden shadow-xl relative group">
+                    <div className="rounded-[3rem] overflow-hidden shadow-2xl relative group border border-[#E2E8F0] p-3 bg-[#F4F7FB]">
                       <OptimizedImage 
                         src={service.image} 
                         alt={service.title} 
-                        className="w-full h-auto min-h-[220px] transform transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                         width={600}
                         height={400}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-indigo-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                   </div>
                   
                   {/* Content column */}
-                  <div>
-                    <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8">
+                  <div className="animate-slide-in-left">
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="w-16 h-16 rounded-2xl bg-[#F4F7FB] text-[#2563EB] flex items-center justify-center shadow-sm">
+                        <service.icon className="h-8 w-8" />
+                      </div>
+                      <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] uppercase tracking-tighter">
+                        {service.title}
+                      </h2>
+                    </div>
+                    
+                    <p className="text-xl text-[#475569] mb-12 font-medium leading-relaxed">
                       {service.description}
                     </p>
                     
-                    <h4 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 text-gray-800">Key Benefits</h4>
-                    <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
-                      {service.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <div className="p-1 rounded-full bg-blue-100 text-blue-600 mt-0.5">
-                            <Check className="w-5 h-5" />
-                          </div>
-                          <span className="text-gray-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+                      <div className="space-y-4">
+                        <h4 className="text-xs font-black uppercase tracking-widest text-[#2563EB]">Core Benefits</h4>
+                        <ul className="space-y-4">
+                          {service.benefits.slice(0, 3).map((benefit, i) => (
+                            <li key={i} className="flex items-center gap-3 text-sm font-bold text-[#0F172A]">
+                              <div className="w-5 h-5 rounded-full bg-blue-100 text-[#2563EB] flex items-center justify-center flex-shrink-0">
+                                <Check className="w-3 h-3" />
+                              </div>
+                              {benefit}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <h4 className="text-xs font-black uppercase tracking-widest text-[#2563EB]">Key Use Cases</h4>
+                        <ul className="space-y-4">
+                          {service.useCases.slice(0, 3).map((useCase, i) => (
+                            <li key={i} className="flex items-center gap-3 text-sm font-bold text-[#0F172A]">
+                              <div className="w-5 h-5 rounded-full bg-blue-100 text-[#2563EB] flex items-center justify-center flex-shrink-0">
+                                <ArrowRight className="w-3 h-3" />
+                              </div>
+                              {useCase}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                     
                     <Link 
-                      to={`/services/${service.id}`}
-                      className="inline-flex items-center px-5 py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:shadow-lg transition-all hover:scale-105 text-sm md:text-base"
+                      to={`/contact`}
+                      className="inline-flex items-center px-10 py-5 bg-[#0F172A] text-white font-black rounded-2xl shadow-xl hover:bg-[#2563EB] transition-all uppercase tracking-widest text-xs"
                     >
-                      Learn More
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      Request Consultation
                     </Link>
-                  </div>
-                </div>
-                
-                {/* Use Cases Section with Modern Cards */}
-                <div className="bg-gray-50 p-4 md:p-8 rounded-2xl overflow-x-auto">
-                  <h4 className="text-lg md:text-2xl font-semibold mb-6 md:mb-8 text-gray-800 text-center">
-                    How {service.title} Works in Practice
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6">
-                    {service.useCases.map((useCase, i) => (
-                      <div key={i} className="bg-white p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
-                            {i + 1}
-                          </div>
-                          <h5 className="font-medium text-gray-700 text-sm md:text-base">Use Case</h5>
-                        </div>
-                        <p className="text-gray-600 text-sm md:text-base">{useCase}</p>
-                      </div>
-                    ))}
                   </div>
                 </div>
               </div>
@@ -365,39 +310,35 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Modern CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-800 to-indigo-900 text-white relative overflow-hidden">
-        {/* Decorative Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-96 h-96 rounded-full bg-blue-500 opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-indigo-500 opacity-10 translate-x-1/2 translate-y-1/2"></div>
-        </div>
-        
-        <div className="container-default text-center relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-5xl font-bold mb-6">Ready to Explore the Right Service?</h2>
-            <p className="text-xl mb-10 text-blue-100">
-              Our team of security experts is ready to help you find the perfect AI surveillance service for your needs.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link 
-                to="/contact" 
-                className="px-8 py-4 bg-white text-blue-800 font-semibold rounded-lg hover:bg-blue-50 transition-all hover:shadow-xl"
-              >
-                Schedule a Consultation
-              </Link>
-              <Link 
-                to="/solutions" 
-                className="px-8 py-4 border-2 border-white/80 text-white font-semibold rounded-lg hover:bg-white/10 transition-all hover:shadow-xl"
-              >
-                Learn About Our Solutions
-              </Link>
-            </div>
+      {/* CTA Section */}
+      <section className="py-40 bg-[#0a0e1a] text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-600/10 blur-[100px] rounded-full translate-x-1/2"></div>
+        <div className="container-default px-8 text-center relative z-10 animate-scale-in">
+          <h2 className="text-5xl md:text-8xl font-black mb-12 uppercase tracking-tighter leading-none text-white">
+            Ready to <span className="text-[#2563EB]">Secure</span> <br />Your Future?
+          </h2>
+          <p className="text-xl md:text-2xl mb-12 text-white/70 max-w-3xl mx-auto font-medium leading-relaxed">
+            Our team of security architects is ready to help you implement enterprise-grade AI infrastructure.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <Link 
+              to="/contact" 
+              className="px-12 py-6 bg-[#2563EB] text-white font-black rounded-2xl hover:bg-blue-700 transition-all shadow-2xl uppercase tracking-widest text-sm"
+            >
+              Get Started Now
+            </Link>
+            <Link 
+              to="/solutions" 
+              className="px-12 py-6 border-2 border-white/20 text-white font-black rounded-2xl hover:bg-white/10 transition-all uppercase tracking-widest text-sm"
+            >
+              View Solutions
+            </Link>
           </div>
         </div>
       </section>
     </Layout>
   );
 };
+
 
 export default Services;

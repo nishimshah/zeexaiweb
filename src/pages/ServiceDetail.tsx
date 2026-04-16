@@ -249,13 +249,8 @@ const SolutionDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    console.log("Current solutionId param:", solutionId); // Debug log
-    
-    // Check if solutionId exists and is valid
     if (solutionId && solutionsDetails[solutionId]) {
       setSolution(solutionsDetails[solutionId]);
-    } else {
-      console.error(`Solution not found for ID: ${solutionId}`);
     }
     setIsLoading(false);
   }, [solutionId]);
@@ -263,8 +258,8 @@ const SolutionDetail = () => {
   if (isLoading) {
     return (
       <Layout showFooter={false}>
-        <div className="container py-20 text-center">
-          <h1 className="text-4xl font-bold mb-6 text-gray-900">Loading...</h1>
+        <div className="min-h-screen flex items-center justify-center bg-[#0a0e1a]">
+          <div className="w-12 h-12 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin"></div>
         </div>
       </Layout>
     );
@@ -273,21 +268,15 @@ const SolutionDetail = () => {
   if (!solution) {
     return (
       <Layout showFooter={false}>
-        <div className="container py-20 text-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+        <div className="container-default py-40 text-center px-8 bg-white">
+          <h1 className="text-4xl md:text-6xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter">Solution Not Found</h1>
+          <p className="mb-12 text-xl text-[#475569] font-medium max-w-2xl mx-auto italic">The security protocol you're looking for doesn't exist or has been archived.</p>
+          <Link 
+            to="/solutions" 
+            className="inline-flex items-center px-10 py-5 bg-[#2563EB] text-white font-black rounded-2xl hover:bg-blue-700 transition-all uppercase tracking-widest text-xs"
           >
-            <h1 className="text-4xl font-bold mb-6 text-gray-900">Solution Not Found</h1>
-            <p className="mb-8 text-lg text-gray-600">Sorry, the solution you're looking for doesn't exist or has been moved.</p>
-            <Link 
-              to="/solutions" 
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              View All Solutions
-            </Link>
-          </motion.div>
+            View All Protocols
+          </Link>
         </div>
       </Layout>
     );
@@ -297,266 +286,245 @@ const SolutionDetail = () => {
 
   return (
     <Layout showFooter={false}>
-      <PageHeader 
-        title={solution.title}
-        subtitle={solution.description}
-        backgroundImage={solution.headerImage}
-      />
+      {/* Hero Section */}
+      <section className="relative min-h-[60vh] flex items-center justify-center bg-[#0a0e1a] overflow-hidden pt-32 pb-24">
+        <div className="absolute top-0 right-0 w-[50%] h-full bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="container-default relative z-10 px-8 text-center">
+           <Link to="/solutions" className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-white/10 mb-8 hover:bg-white/10 transition-all">
+            <ArrowRight className="rotate-180 w-4 h-4" /> Back to Intelligence
+          </Link>
+          <h1 className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight uppercase tracking-tighter">
+            {solution.title.split(' ')[0]} <span className="text-[#2563EB]">{solution.title.split(' ').slice(1).join(' ')}</span>
+          </h1>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto font-medium leading-relaxed">
+            {solution.description}
+          </p>
+        </div>
+      </section>
       
-      <motion.section 
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-        className="py-16 md:py-20"
-      >
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <section className="py-32 bg-white">
+        <div className="container-default px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
             {/* Main content */}
-            <motion.div 
-              variants={fadeInUp}
-              className="lg:col-span-8"
-            >
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="overflow-hidden rounded-2xl shadow-2xl mb-12"
-              >
+            <div className="lg:col-span-8">
+              <div className="overflow-hidden rounded-[3rem] shadow-2xl mb-16 border border-[#E2E8F0] relative group">
                 <img 
                   src={solution.image} 
                   alt={solution.title}
-                  className="w-full h-auto object-cover aspect-video"
+                  className="w-full h-auto object-cover aspect-video grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
                 />
-              </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e1a]/20 to-transparent"></div>
+              </div>
               
-              <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700">
+              <div className="prose prose-2xl max-w-none industrial-prose-detail">
+                <style>{`
+                  .industrial-prose-detail h2 {
+                    font-size: 3rem;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: -0.025em;
+                    color: #0F172A;
+                    margin-bottom: 2rem;
+                    line-height: 1;
+                  }
+                  .industrial-prose-detail h3 {
+                    font-size: 1.5rem;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    color: #2563EB;
+                    margin-top: 3rem;
+                    margin-bottom: 1.5rem;
+                  }
+                  .industrial-prose-detail p {
+                    font-size: 1.25rem;
+                    color: #475569;
+                    line-height: 1.8;
+                    font-weight: 500;
+                    margin-bottom: 2rem;
+                  }
+                  .industrial-prose-detail ul {
+                    list-style: none;
+                    margin-bottom: 3rem;
+                    padding-left: 0;
+                  }
+                  .industrial-prose-detail li {
+                    position: relative;
+                    padding-left: 2rem;
+                    margin-bottom: 1.5rem;
+                    font-size: 1.125rem;
+                    color: #475569;
+                    font-weight: 600;
+                  }
+                  .industrial-prose-detail li::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0.6em;
+                    width: 0.75rem;
+                    height: 2px;
+                    background: #2563EB;
+                  }
+                  .industrial-prose-detail strong { color: #0F172A; font-weight: 900; }
+                `}</style>
                 <div dangerouslySetInnerHTML={{ __html: solution.content }} />
               </div>
-            </motion.div>
+            </div>
             
             {/* Sidebar */}
-            <motion.div 
-              variants={fadeInUp}
-              className="lg:col-span-4 space-y-8"
-            >
-              {/* Solution benefits */}
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-sm"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-md">
-                    <SolutionIcon className="h-6 w-6 text-blue-600" />
+            <div className="lg:col-span-4 space-y-10 sticky top-32">
+              <div className="bg-[#F4F7FB] rounded-[2.5rem] p-12 border border-[#E2E8F0] shadow-xl">
+                <div className="flex items-center gap-6 mb-10">
+                  <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-lg border border-[#E2E8F0]">
+                    <SolutionIcon className="h-10 w-10 text-[#2563EB]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">{solution.title}</h3>
+                  <h3 className="text-2xl font-black text-[#0F172A] uppercase tracking-tighter leading-none">{solution.title}</h3>
                 </div>
                 
-                <h4 className="font-semibold mb-4 text-gray-700">Key Benefits</h4>
-                <ul className="space-y-3 mb-8">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-[#2563EB] mb-8">SECURE BENEFITS</h4>
+                <ul className="space-y-6 mb-12">
                   {solution.benefits.map((benefit, i) => (
-                    <motion.li 
-                      key={i} 
-                      className="flex items-start gap-3"
-                      variants={fadeInUp}
-                    >
-                      <div className="flex-shrink-0 mt-0.5">
-                        <Check className="w-5 h-5 text-blue-500" />
+                    <li key={i} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-1">
+                        <Check className="w-5 h-5 text-[#2563EB]" />
                       </div>
-                      <span className="text-gray-700">{benefit}</span>
-                    </motion.li>
+                      <span className="text-sm font-bold text-[#475569]">{benefit}</span>
+                    </li>
                   ))}
                 </ul>
                 
                 <Link 
                   to="/contact" 
-                  className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+                  className="w-full h-16 flex items-center justify-center bg-[#2563EB] text-white font-black rounded-2xl hover:bg-blue-700 shadow-xl transition-all uppercase tracking-widest text-xs"
                 >
                   Request a Demo
                 </Link>
-              </motion.div>
+              </div>
               
-              {/* Other solutions */}
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
-              >
-                <h3 className="text-xl font-bold mb-6 text-gray-900">Explore Other Solutions</h3>
-                <div className="space-y-4">
+              <div className="bg-white rounded-[2.5rem] p-12 border border-[#E2E8F0] shadow-xl">
+                <h3 className="text-xl font-black mb-8 text-[#0F172A] uppercase tracking-tighter">RELATED PROTOCOLS</h3>
+                <div className="space-y-6">
                   {Object.entries(solutionsDetails)
                     .filter(([key]) => key !== solutionId)
                     .map(([key, otherSolution]) => {
                       const OtherIcon = otherSolution.icon;
                       return (
-                        <motion.div
+                        <Link 
                           key={key}
-                          whileHover={{ x: 5 }}
+                          to={`/services/${key}`} 
+                          className="flex items-center gap-4 group transition-all"
                         >
-                          <Link 
-                            to={`/services/${key}`} 
-                            className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors"
-                          >
-                            <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                              <OtherIcon className="h-5 w-5 text-blue-600" />
-                            </div>
-                            <div>
-                              <h4 className="font-medium text-gray-900">{otherSolution.title}</h4>
-                              <p className="text-sm text-gray-500">{otherSolution.description.substring(0, 60)}...</p>
-                            </div>
-                            <ArrowRight className="w-5 h-5 text-gray-400 ml-auto" />
-                          </Link>
-                        </motion.div>
+                          <div className="w-14 h-14 rounded-2xl bg-[#F4F7FB] flex items-center justify-center border border-[#E2E8F0] group-hover:border-[#2563EB] transition-all">
+                            <OtherIcon className="h-6 w-6 text-[#2563EB]" />
+                          </div>
+                          <div>
+                            <h4 className="text-xs font-black text-[#0F172A] uppercase tracking-widest group-hover:text-[#2563EB] transition-all">{otherSolution.title}</h4>
+                            <p className="text-[10px] text-[#475569] font-bold mt-1">ACTIVE MISSION</p>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-[#E2E8F0] group-hover:text-[#2563EB] ml-auto transition-all translate-x-0 group-hover:translate-x-1" />
+                        </Link>
                       );
                     })
                   }
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
-      </motion.section>
-      
-      {/* Rest of your component... */}
-      {/* Recommended Services, Solution Workflow, and CTA sections */}
+      </section>
       
       {/* Recommended Services */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="bg-gradient-to-b from-blue-50 to-white py-16 md:py-24"
-      >
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Recommended Services</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Our AI-powered services that are most commonly deployed in {solution.title.toLowerCase()} applications:
-            </p>
-          </motion.div>
+      <section className="bg-[#F4F7FB] py-32 rounded-[4rem] mx-8 mb-32 border border-[#E2E8F0]">
+        <div className="container-default px-12">
+          <div className="text-center mb-24">
+            <span className="inline-block px-4 py-2 bg-white text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-8">
+              DEPCOYMENT CORE
+            </span>
+            <h2 className="text-4xl md:text-7xl font-black text-[#0F172A] uppercase tracking-tighter leading-tight">RECOMMENDED <br /><span className="text-[#2563EB]">SERVICES</span></h2>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {solution.services.map((service, index) => {
               const ServiceIcon = service.icon;
               return (
-                <motion.div
+                <Link 
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  to={`/services/${service.id}`}
+                  className="group bg-white rounded-[2.5rem] p-10 shadow-xl hover:shadow-2xl transition-all h-full flex flex-col border border-[#E2E8F0] hover:border-[#2563EB]"
                 >
-                  <Link 
-                    to={`/services/${service.id}`}
-                    className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all h-full flex flex-col"
-                  >
-                    <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-6 group-hover:bg-blue-200 transition-colors">
-                      <ServiceIcon className="h-6 w-6 text-blue-600 group-hover:text-blue-700" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors">{service.title}</h3>
-                    <p className="text-gray-600 mb-6 flex-grow">{service.description}</p>
-                    <div className="text-blue-600 font-medium flex items-center group-hover:text-blue-700 transition-colors">
-                      Learn more
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </Link>
-                </motion.div>
+                  <div className="w-16 h-16 rounded-2xl bg-[#F4F7FB] flex items-center justify-center mb-10 group-hover:bg-[#2563EB] transition-all">
+                    <ServiceIcon className="h-7 w-7 text-[#2563EB] group-hover:text-white transition-all" />
+                  </div>
+                  <h3 className="text-2xl font-black mb-6 text-[#0F172A] uppercase tracking-tight group-hover:text-[#2563EB] transition-all">{service.title}</h3>
+                  <p className="text-[#475569] text-sm font-medium leading-relaxed mb-10 flex-grow">{service.description}</p>
+                  <div className="text-[#2563EB] text-[10px] font-black uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                    Deploy Protocol
+                    <ArrowRight className="h-4 w-4" />
+                  </div>
+                </Link>
               );
             })}
           </div>
         </div>
-      </motion.section>
+      </section>
       
       {/* Solution Workflow */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">How It Works</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Our {solution.title.toLowerCase()} solution follows a streamlined workflow to ensure optimal security:
+      <section className="py-32 bg-white overflow-hidden">
+        <div className="container-default px-8">
+          <div className="text-center mb-32">
+             <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-8">
+              MISSION EXECUTION
+            </span>
+            <h2 className="text-4xl md:text-7xl font-black text-[#0F172A] uppercase tracking-tighter mb-8 leading-none">HOW IT <span className="text-[#2563EB]">WORKS</span></h2>
+            <p className="text-xl text-[#475569] font-medium max-w-2xl mx-auto">
+              Our {solution.title.toLowerCase()} solution follows a streamlined workflow to ensure optimal security.
             </p>
-          </motion.div>
+          </div>
           
           <div className="relative">
-            {/* Connector line */}
-            <div className="absolute top-16 left-[calc(50%-1px)] h-[calc(100%-80px)] w-0.5 bg-gradient-to-b from-blue-200 to-indigo-200 hidden md:block"></div>
+            <div className="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#E2E8F0] to-transparent hidden md:block -translate-y-1/2"></div>
             
-            <motion.div 
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-16"
-            >
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
               {solution.workflow.map((step, index) => (
-                <motion.div 
-                  key={index} 
-                  variants={fadeInUp}
-                  className="relative"
-                >
-                  <div className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                    {/* Step number */}
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xl relative z-10 shadow-lg">
-                      {index + 1}
-                    </div>
-                    
-                    {/* Content */}
-                    <motion.div 
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-white rounded-xl shadow-lg p-8 md:w-[calc(50%-40px)] relative border border-gray-100"
-                    >
-                      <h3 className="text-xl font-bold mb-3 text-gray-900">{step.title}</h3>
-                      <p className="text-gray-600">{step.description}</p>
-                    </motion.div>
+                <div key={index} className="relative z-10 text-center">
+                  <div className="w-20 h-20 rounded-3xl bg-[#0a0e1a] text-white flex items-center justify-center font-black text-2xl mx-auto mb-10 shadow-2xl border border-white/10 group hover:bg-[#2563EB] transition-all">
+                    {index + 1}
                   </div>
-                </motion.div>
+                  <h3 className="text-xl font-black text-[#0F172A] mb-4 uppercase tracking-tight">{step.title}</h3>
+                  <p className="text-sm font-medium text-[#475569] leading-relaxed">{step.description}</p>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
       
       {/* CTA Section */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white"
-      >
-        <div className="container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to implement {solution.title}?</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Contact us today to learn how our AI-powered security solutions can be tailored to your specific needs.
+      <section className="py-40 bg-[#0a0e1a] text-white overflow-hidden relative">
+         <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-600/10 blur-[100px] rounded-full translate-x-1/2"></div>
+        <div className="container-default px-8 text-center relative z-10">
+          <h2 className="text-4xl md:text-8xl font-black mb-12 uppercase tracking-tighter leading-none">READY TO <br /><span className="text-[#2563EB]">COMMENCE?</span></h2>
+          <p className="text-xl md:text-2xl text-white/60 mb-16 max-w-2xl mx-auto font-medium leading-relaxed">
+            Protect your assets with industrial-grade AI. Contact us to initiate your security assessment.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
               to="/contact" 
-              className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-medium rounded-xl hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl"
+              className="px-12 py-6 bg-[#2563EB] text-white font-black rounded-3xl hover:bg-blue-700 shadow-2xl transition-all uppercase tracking-widest text-sm"
             >
-              Schedule a Consultation
+              Schedule Consultation
             </Link>
             <Link 
               to="/solutions" 
-              className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-medium rounded-xl hover:bg-white/10 transition-all"
+              className="px-12 py-6 bg-white/5 text-white border border-white/10 font-black rounded-3xl hover:bg-white/10 transition-all uppercase tracking-widest text-sm"
             >
-              Explore Other Solutions
+              Explore Solutions
             </Link>
           </div>
         </div>
-      </motion.section>
+      </section>
     </Layout>
   );
 };
+
 
 export default SolutionDetail;

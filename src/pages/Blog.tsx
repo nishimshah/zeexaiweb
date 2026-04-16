@@ -124,88 +124,51 @@ const NewsletterSignup = ({ premium }: { premium?: boolean }) => {
 };
 
 const Blog = () => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.6, 
-        ease: "easeOut",
-        delay: 0.2
-      }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3
-      }
-    }
-  };
-
   return (
     <Layout showFooter={false}>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center justify-center bg-[#1E3A8A] overflow-hidden">
-        <div className="container-default relative z-10 px-8 text-center text-white">
+      <section className="relative min-h-[60vh] flex items-center justify-center bg-[#0a0e1a] overflow-hidden pt-32 pb-24">
+        <div className="absolute top-0 left-0 w-[50%] h-full bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 -translate-x-1/2"></div>
+        <div className="container-default relative z-10 px-8 text-center animate-scale-in">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm font-bold mb-6 backdrop-blur-sm border border-white/20"
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#2563EB] backdrop-blur-sm mb-8 border border-white/10"
           >
-            ZEEX AI INTELLIGENCE
+            <Shield className="w-4 h-4" /> Zeex AI Intelligence
           </motion.div>
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-            Blog & <span className="text-[#2563EB]">Insights</span>
+          <h1 className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight uppercase tracking-tighter">
+            BLOG & <span className="text-[#2563EB]">INSIGHTS</span>
           </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
+          <p className="text-xl text-white/70 max-w-2xl mx-auto font-medium leading-relaxed">
             The latest technical perspectives on artificial intelligence, surveillance engineering, and enterprise security architecture.
           </p>
         </div>
       </section>
 
       {/* Blog Content Section */}
-      <section className="py-24 bg-white">
+      <section className="py-32 bg-white">
         <div className="container-default px-8">
           {/* Blog filter */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-8">
             <div className="max-w-xl">
-              <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-sm font-bold mb-4">
+              <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-8">
                 PUBLICATIONS
               </span>
-              <h2 className="text-4xl font-black text-[#0F172A] mb-4">Latest Engineering Insights</h2>
-              <p className="text-lg text-[#475569]">Deep dives into the technology driving modern industrial security.</p>
+              <h2 className="text-4xl md:text-6xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter leading-none">Latest <br /><span className="text-[#2563EB]">Insights</span></h2>
+              <p className="text-xl text-[#475569] font-medium">Deep dives into the technology driving modern industrial security.</p>
             </div>
-            <div className="flex gap-3 flex-wrap">
-              <button className="px-6 py-3 bg-[#1E3A8A] text-white font-bold rounded-lg text-sm uppercase tracking-widest transition-all">
-                All
-              </button>
-              <button className="px-6 py-3 bg-[#F4F7FB] text-[#1E3A8A] font-bold rounded-lg text-sm uppercase tracking-widest hover:bg-[#E2E8F0] transition-all">
-                Technology
-              </button>
-              <button className="px-6 py-3 bg-[#F4F7FB] text-[#1E3A8A] font-bold rounded-lg text-sm uppercase tracking-widest hover:bg-[#E2E8F0] transition-all">
-                Trends
-              </button>
-              <button className="px-6 py-3 bg-[#F4F7FB] text-[#1E3A8A] font-bold rounded-lg text-sm uppercase tracking-widest hover:bg-[#E2E8F0] transition-all">
-                Case Studies
-              </button>
+            <div className="flex gap-4 flex-wrap">
+              {['All', 'Technology', 'Trends', 'Case Studies'].map((cat, i) => (
+                <button key={i} className={cn(
+                  "px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border",
+                  i === 0 
+                    ? "bg-[#2563EB] text-white border-[#2563EB] shadow-xl" 
+                    : "bg-[#F4F7FB] text-[#475569] border-[#E2E8F0] hover:border-[#2563EB] hover:text-[#2563EB]"
+                )}>
+                  {cat}
+                </button>
+              ))}
             </div>
           </div>
           
@@ -218,31 +181,29 @@ const Blog = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden hover:shadow-2xl transition-all group flex flex-col h-full"
+                className="group h-full"
               >
-                <Link to={`/blog/${post.id}`} className="block h-full flex flex-col">
-                  <div className="aspect-video overflow-hidden">
+                <Link to={`/blog/${post.id}`} className="flex flex-col h-full bg-white rounded-3xl overflow-hidden border border-[#E2E8F0] hover:border-[#2563EB] hover:shadow-2xl transition-all duration-500">
+                  <div className="aspect-video overflow-hidden relative">
                     <img 
                       src={post.image} 
                       alt={post.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
+                      className="w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-100"
                     />
                   </div>
-                  <div className="p-8 flex-grow flex flex-col">
-                    <div className="flex justify-between items-center mb-6">
-                      <span className="text-xs font-black text-[#1E3A8A] uppercase tracking-widest">{post.category}</span>
-                      <span className="text-xs font-bold text-[#475569]">{post.date}</span>
+                  <div className="p-10 flex flex-col flex-grow">
+                    <div className="flex items-center gap-3 mb-6">
+                      <span className="text-[10px] font-black text-[#2563EB] uppercase tracking-widest">{post.category}</span>
                     </div>
-                    <h3 className="text-2xl font-bold text-[#0F172A] mb-4 group-hover:text-[#2563EB] transition-colors leading-tight">
+                    <h3 className="text-2xl font-black mb-6 text-[#0F172A] uppercase tracking-tight leading-tight group-hover:text-[#2563EB] transition-colors">
                       {post.title}
                     </h3>
-                    <p className="text-[#475569] mb-8 line-clamp-3 leading-relaxed">
+                    <p className="text-[#475569] text-sm leading-relaxed mb-10 font-medium line-clamp-3">
                       {post.excerpt}
                     </p>
-                    <div className="mt-auto flex items-center gap-2 text-[#1E3A8A] font-black uppercase tracking-widest text-xs group-hover:gap-4 transition-all">
-                      Read Technical Article
-                      <ArrowRight size={14} />
+                    <div className="mt-auto flex items-center text-[#2563EB] text-[10px] font-black uppercase tracking-widest group-hover:gap-4 transition-all">
+                      Read more
+                      <ArrowRight size={14} className="ml-2" />
                     </div>
                   </div>
                 </Link>
@@ -251,25 +212,28 @@ const Blog = () => {
           </div>
           
           {/* Pagination */}
-          <div className="flex justify-center mt-20 gap-3">
-            <button className="w-12 h-12 flex items-center justify-center border border-[#E2E8F0] rounded-lg font-bold text-[#0F172A] hover:bg-[#F4F7FB] transition-all">1</button>
-            <button className="w-12 h-12 flex items-center justify-center border border-[#E2E8F0] rounded-lg font-bold text-[#0F172A] hover:bg-[#F4F7FB] transition-all">2</button>
-            <button className="w-12 h-12 flex items-center justify-center border border-[#E2E8F0] rounded-lg font-bold text-[#0F172A] hover:bg-[#F4F7FB] transition-all">3</button>
-            <button className="px-6 h-12 flex items-center justify-center border border-[#E2E8F0] rounded-lg font-bold text-[#0F172A] hover:bg-[#F4F7FB] transition-all uppercase text-xs tracking-widest">Next</button>
+          <div className="flex justify-center mt-24 gap-4">
+            {[1, 2, 3].map(page => (
+              <button key={page} className="w-14 h-14 flex items-center justify-center border border-[#E2E8F0] rounded-2xl font-black text-[#475569] hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all">
+                {page}
+              </button>
+            ))}
+            <button className="px-10 h-14 flex items-center justify-center border border-[#E2E8F0] rounded-2xl font-black text-[#475569] hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all uppercase text-[10px] tracking-widest">Next</button>
           </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 bg-[#F4F7FB] border-t border-[#E2E8F0]">
+      <section className="py-32 bg-[#F4F7FB] border-t border-[#E2E8F0]">
         <div className="container-default px-8">
-          <div className="bg-[#1E3A8A] rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center">
-            <div className="p-12 lg:p-20 lg:w-3/5 text-white">
-              <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-xs font-bold mb-6 tracking-widest border border-white/20 uppercase">
+          <div className="bg-[#0a0e1a] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center border border-white/5 relative">
+             <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,_rgba(37,99,235,0.1)_0%,_transparent_50%)] pointer-events-none"></div>
+            <div className="p-16 lg:p-24 lg:w-3/5 text-white relative z-10">
+              <span className="inline-block px-4 py-2 bg-white/5 text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest mb-8 border border-white/10 uppercase">
                 STAY INFORMED
               </span>
-              <h2 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">Subscribe to Zeex Intelligence</h2>
-              <p className="text-xl text-white/70 mb-10 max-w-lg">
+              <h2 className="text-4xl lg:text-7xl font-black mb-8 leading-none uppercase tracking-tighter">Subscribe to <br /><span className="text-[#2563EB]">Zeex Intelligence</span></h2>
+              <p className="text-xl text-white/60 mb-12 max-w-lg font-medium leading-relaxed">
                 Receive mission-critical updates on industrial AI advancements directly in your inbox. No marketing fluff.
               </p>
               
@@ -277,17 +241,18 @@ const Blog = () => {
                 <input 
                   type="email" 
                   placeholder="Enter your enterprise email" 
-                  className="flex-grow px-8 py-5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:bg-white focus:text-[#0F172A] focus:outline-none transition-all"
+                  className="flex-grow px-8 py-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:bg-white focus:text-[#0F172A] focus:outline-none transition-all font-medium"
                 />
-                <button className="px-10 py-5 bg-[#2563EB] hover:bg-white hover:text-[#1E3A8A] text-white font-bold rounded-xl transition-all uppercase tracking-widest whitespace-nowrap">
-                  Join Newsletter
+                <button className="px-12 py-5 bg-[#2563EB] hover:bg-white hover:text-[#2563EB] text-white font-black rounded-2xl transition-all uppercase tracking-widest text-[10px] shadow-2xl">
+                  Join Protocol
                 </button>
               </form>
             </div>
             
-            <div className="hidden lg:block lg:w-2/5 p-20">
-              <div className="w-full aspect-square bg-[#2563EB] rounded-2xl flex items-center justify-center shadow-inner">
-                <Mail size={120} className="text-white opacity-20" />
+            <div className="hidden lg:block lg:w-2/5 p-24">
+              <div className="w-full aspect-square bg-[#2563EB]/10 rounded-full flex items-center justify-center border border-[#2563EB]/20 relative group">
+                <div className="absolute inset-0 bg-[#2563EB]/10 rounded-full animate-pulse transition-transform duration-1000 group-hover:scale-110"></div>
+                <Mail size={120} className="text-[#2563EB] relative z-10" />
               </div>
             </div>
           </div>
@@ -296,5 +261,7 @@ const Blog = () => {
     </Layout>
   );
 };
+import { cn } from '@/lib/utils';
+
 
 export default Blog;

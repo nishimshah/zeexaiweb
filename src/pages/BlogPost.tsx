@@ -459,23 +459,13 @@ const BlogPost = () => {
               </span>
               <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">Stay Ahead of the Curve</h3>
               <p className="text-white/60 mb-10 max-w-lg mx-auto">Get notified immediately when we publish new architectural breakdowns and technical insights.</p>
-              <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input 
-                  type="email" 
-                  placeholder="name@enterprise.com" 
-                  className="flex-grow px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 focus:bg-white focus:text-[#0F172A] focus:outline-none transition-all text-sm"
-                />
-                <button className="px-8 py-4 bg-[#2563EB] hover:bg-white hover:text-[#1E3A8A] text-white font-black rounded-xl transition-all uppercase tracking-widest text-xs whitespace-nowrap">
-                  Subscribe
-                </button>
-              </form>
+              <div className="max-w-md mx-auto">
+                <NewsletterSignup />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </Layout>
-  );
-};
     </Layout>
   );
 };

@@ -196,24 +196,25 @@ const Solutions = () => {
   return (
     <Layout showFooter={false}>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center justify-center bg-[#1E3A8A] overflow-hidden">
-        <div className="container-default relative z-10 px-8 text-center text-white">
+      <section className="relative min-h-[60vh] flex items-center justify-center bg-[#0a0e1a] overflow-hidden pt-32 pb-24 text-center">
+        <div className="absolute top-0 right-0 w-[50%] h-full bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="container-default relative z-10 px-8">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm font-bold mb-6 backdrop-blur-sm border border-white/20"
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#2563EB] backdrop-blur-sm mb-8 border border-white/10"
           >
             ENTERPRISE GRADE AI SECURITY
           </motion.div>
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-            Advanced <span className="text-[#2563EB]">Security Solutions</span>
+          <h1 className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight uppercase tracking-tighter">
+            ADVANCED <span className="text-[#2563EB]">SOLUTIONS</span>
           </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
+          <p className="text-xl text-white/70 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
             Cutting-edge surveillance solutions powered by industrial-grade artificial intelligence to protect your most critical assets.
           </p>
           <Link 
             to="/contact" 
-            className="px-12 py-6 bg-white text-[#1E3A8A] font-bold rounded-lg shadow-xl hover:bg-gray-100 transition-all uppercase tracking-widest"
+            className="px-12 py-6 bg-[#2563EB] text-white font-black rounded-2xl shadow-2xl hover:bg-blue-700 transition-all uppercase tracking-widest text-sm"
           >
             Request a Consultation
           </Link>
@@ -221,19 +222,21 @@ const Solutions = () => {
       </section>
       
       {/* Solutions Grid Section */}
-      <section className="py-24 bg-white">
+      <section className="py-32 bg-white">
         <div className="container-default px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-sm font-bold mb-4">
+          <div className="text-center max-w-3xl mx-auto mb-24">
+            <span className="inline-block px-4 py-2 bg-blue-50 text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-100 mb-8">
               OUR CAPABILITIES
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">Comprehensive Solutions</h2>
-            <p className="text-lg text-[#475569]">
+            <h2 className="text-4xl md:text-7xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter leading-none">
+              COMPREHENSIVE <br /><span className="text-[#2563EB]">SOLUTIONS</span>
+            </h2>
+            <p className="text-xl text-[#475569] font-medium leading-relaxed">
               Our suite of AI-powered security solutions provides complete, proactive protection for every environment.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {solutions.map((solution, index) => (
               <motion.div 
                 key={solution.id}
@@ -241,38 +244,42 @@ const Solutions = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden hover:shadow-2xl transition-all group flex flex-col h-full"
+                className="group h-full"
               >
-                <div className="aspect-video relative overflow-hidden">
-                  <img src={solution.image} alt={solution.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute top-4 left-4">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg border border-[#E2E8F0]">
-                      <solution.icon className="h-6 w-6 text-[#1E3A8A]" />
+                <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-[#E2E8F0] overflow-hidden hover:border-[#2563EB] hover:shadow-2xl transition-all duration-500">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img src={solution.image} alt={solution.title} className="w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-100" />
+                    <div className="absolute top-6 left-6">
+                      <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-xl border border-[#E2E8F0] group-hover:scale-110 transition-transform">
+                        <solution.icon className="h-7 w-7 text-[#2563EB]" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="p-8 flex-grow flex flex-col">
-                  <h3 className="text-2xl font-bold text-[#0F172A] mb-4">{solution.title}</h3>
-                  <p className="text-[#475569] mb-8 leading-relaxed">
-                    {solution.description}
-                  </p>
                   
-                  <div className="space-y-4 mb-8">
-                    {solution.features.map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-[#2563EB] flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 font-medium">{feature}</span>
-                      </div>
-                    ))}
+                  <div className="p-10 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-black text-[#0F172A] mb-6 uppercase tracking-tight leading-tight group-hover:text-[#2563EB] transition-colors">{solution.title}</h3>
+                    <p className="text-[#475569] text-sm font-medium leading-relaxed mb-10">
+                      {solution.description}
+                    </p>
+                    
+                    <div className="space-y-4 mb-10">
+                      {solution.features.slice(0, 3).map((feature, i) => (
+                        <div key={i} className="flex items-start gap-4 text-xs font-bold text-[#0F172A]">
+                          <div className="w-5 h-5 rounded-full bg-blue-100 text-[#2563EB] flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-3 h-3" />
+                          </div>
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <Link 
+                      to="/contact" 
+                      className="mt-auto inline-flex items-center justify-center py-5 bg-[#F4F7FB] text-[#2563EB] font-black rounded-2xl hover:bg-[#2563EB] hover:text-white transition-all uppercase tracking-widest text-[10px]"
+                    >
+                      Get more details
+                    </Link>
                   </div>
-                  
-                  <Link 
-                    to="/contact" 
-                    className="mt-auto inline-flex items-center justify-center py-4 bg-[#F4F7FB] text-[#1E3A8A] font-bold rounded-lg hover:bg-[#1E3A8A] hover:text-white transition-all uppercase tracking-widest text-sm"
-                  >
-                    Get more details
-                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -281,31 +288,31 @@ const Solutions = () => {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-24 bg-[#F4F7FB]">
-        <div className="container-default px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="inline-block px-4 py-2 bg-white text-[#1E3A8A] rounded-full text-sm font-bold mb-4 border border-[#E2E8F0]">
+      <section className="py-40 bg-[#F4F7FB] relative overflow-hidden">
+        <div className="container-default px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-24">
+            <span className="inline-block px-4 py-2 bg-white text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-8">
               THE ZEEX ADVANTAGE
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">Built for Industrial Performance</h2>
-            <p className="text-lg text-[#475569]">
+            <h2 className="text-4xl md:text-7xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter leading-none">BUILT FOR <br /><span className="text-[#2563EB]">PERFORMANCE</span></h2>
+            <p className="text-xl text-[#475569] font-medium leading-relaxed">
               Precision-engineered AI systems that work together to provide unmatched security reliability.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
               { icon: <Shield />, title: "Proactive Defense", desc: "Machine learning algorithms that predict and prevent incidents before they even happen." },
               { icon: <Video />, title: "Vision Intelligence", desc: "Industrial-grade video analysis that tracks threats across multiple angles and conditions." },
               { icon: <Database />, title: "Secure Infrastructure", desc: "Military-grade encryption securing all data with proprietary protection layers." },
               { icon: <Lock />, title: "Total Control", desc: "Granular access management and monitoring from any authorized mobile or desktop interface." }
             ].map((feature, idx) => (
-              <div key={idx} className="bg-white p-8 rounded-xl border border-[#E2E8F0] shadow-sm hover:shadow-xl transition-all">
-                <div className="w-16 h-16 rounded-xl bg-[#F4F7FB] text-[#2563EB] flex items-center justify-center mb-6 shadow-inner">
-                  {React.cloneElement(feature.icon, { size: 32 })}
+              <div key={idx} className="bg-white p-12 rounded-[2.5rem] border border-[#E2E8F0] shadow-xl hover:shadow-2xl hover:border-[#2563EB] transition-all group">
+                <div className="w-16 h-16 rounded-2xl bg-[#F4F7FB] text-[#2563EB] flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
+                  {React.cloneElement(feature.icon as React.ReactElement, { size: 32 })}
                 </div>
-                <h3 className="text-xl font-bold text-[#0F172A] mb-4">{feature.title}</h3>
-                <p className="text-[#475569] leading-relaxed">
+                <h3 className="text-xl font-black text-[#0F172A] mb-4 uppercase tracking-tight">{feature.title}</h3>
+                <p className="text-[#475569] text-sm font-medium leading-relaxed">
                   {feature.desc}
                 </p>
               </div>
@@ -315,16 +322,19 @@ const Solutions = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-[#1E3A8A] text-white">
-        <div className="container-default px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">Deploy Proactive AI Security Today</h2>
-          <p className="text-xl mb-12 text-white/80 max-w-2xl mx-auto">
+      <section className="py-40 bg-[#0a0e1a] text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[40%] h-full bg-blue-600/10 blur-[100px] rounded-full translate-x-1/2"></div>
+        <div className="container-default px-8 text-center relative z-10">
+          <h2 className="text-5xl md:text-8xl font-black mb-12 uppercase tracking-tighter leading-none">
+            READY TO <span className="text-[#2563EB]">UPGRADE?</span>
+          </h2>
+          <p className="text-xl md:text-2xl mb-12 text-white/60 max-w-2xl mx-auto font-medium leading-relaxed">
             Experience the future of industrial-grade security technology with Zeex AI.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex justify-center">
             <Link 
               to="/contact" 
-              className="px-12 py-6 bg-white text-[#1E3A8A] font-bold rounded-lg shadow-xl hover:bg-gray-100 transition-all uppercase tracking-widest"
+              className="px-16 py-8 bg-[#2563EB] text-white font-black rounded-3xl shadow-2xl hover:bg-blue-700 transition-all uppercase tracking-widest text-lg"
             >
               Get started now
             </Link>
@@ -334,5 +344,6 @@ const Solutions = () => {
     </Layout>
   );
 };
+
 
 export default Solutions;

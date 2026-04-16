@@ -4,27 +4,24 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube } 
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0F172A] text-white pt-32 pb-16 border-t border-[#1E3A8A]/30">
+    <footer className="bg-[#0a0e1a] text-white pt-24 pb-12 border-t border-white/5">
       <div className="container-default px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
-          <div className="space-y-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#1E3A8A] rounded-xl flex items-center justify-center border border-white/10 shadow-xl">
-                <span className="text-white font-black text-2xl uppercase">Z</span>
+          <div className="space-y-6">
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-8 h-8">
+                <img src="https://i.ibb.co/hJqt2xCz/zeex-ai-logo.png" alt="ZeexAI" className="w-full h-full object-contain" />
               </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-black text-2xl tracking-tighter uppercase">ZeexAI</span>
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#475569] mt-0.5">Industrial AI</span>
-              </div>
-            </div>
-            <p className="text-[#475569] leading-relaxed font-medium">
-              Industrial-grade AI surveillance infrastructure engineered for modern operational perimeters.
+              <span className="font-bold text-xl tracking-tight uppercase">ZeexAI</span>
+            </Link>
+            <p className="text-gray-400 leading-relaxed text-sm font-medium">
+              Transforming workplaces and cities with intelligent safety and management powered by AI and data.
             </p>
-            <div className="flex space-x-6">
-              {[Linkedin, Twitter, Youtube, Instagram].map((Icon, i) => (
-                <a key={i} href="#" className="text-[#475569] hover:text-[#2563EB] transition-colors" aria-label="Social">
-                  <Icon size={20} />
+            <div className="flex space-x-4">
+              {[Linkedin, Twitter, Youtube, Instagram, Facebook].map((Icon, i) => (
+                <a key={i} href="#" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#2563EB] transition-all" aria-label="Social">
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
@@ -32,11 +29,11 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xs font-black mb-8 uppercase tracking-widest text-[#2563EB]">Infrastructure</h3>
-            <ul className="space-y-5">
-              {['Home', 'Mission & Vision', 'AI Solutions', 'Technical Blog', 'Contact Support'].map((link, i) => (
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Company</h3>
+            <ul className="space-y-3">
+              {['Home', 'About Us', 'Solutions', 'Blogs', 'Contact'].map((link, i) => (
                 <li key={i}>
-                  <Link to={`/${link.toLowerCase().replace(/ /g, '-')}`} className="text-[#475569] hover:text-white transition-colors text-sm font-bold uppercase tracking-wide">
+                  <Link to={`/${link.toLowerCase().replace(/ /g, '-')}`} className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
                     {link}
                   </Link>
                 </li>
@@ -46,11 +43,11 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-xs font-black mb-8 uppercase tracking-widest text-[#2563EB]">Core Sectors</h3>
-            <ul className="space-y-5">
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Core Services</h3>
+            <ul className="space-y-3">
               {['Retail Intelligence', 'Bank Security', 'Industrial Monitoring', 'Public Infrastructure'].map((link, i) => (
                 <li key={i}>
-                  <Link to="/services" className="text-[#475569] hover:text-white transition-colors text-sm font-bold uppercase tracking-wide">
+                  <Link to="/services" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
                     {link}
                   </Link>
                 </li>
@@ -60,38 +57,33 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-xs font-black mb-8 uppercase tracking-widest text-[#2563EB]">Telemetry</h3>
-            <ul className="space-y-6">
-              <li className="flex gap-4 items-start">
-                <Phone size={18} className="flex-shrink-0 text-[#2563EB] mt-1" />
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Direct Line</span>
-                  <span className="text-[#475569] font-bold">+91 8709221636</span>
-                </div>
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Contact</h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 items-center">
+                <Phone size={16} className="text-[#2563EB]" />
+                <span className="text-gray-400 text-sm font-medium">+91 8709221636</span>
               </li>
-              <li className="flex gap-4 items-start">
-                <Mail size={18} className="flex-shrink-0 text-[#2563EB] mt-1" />
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Secure Email</span>
-                  <span className="text-[#475569] font-bold">admin@zeexai.com</span>
-                </div>
+              <li className="flex gap-3 items-center">
+                <Mail size={16} className="text-[#2563EB]" />
+                <span className="text-gray-400 text-sm font-medium">admin@zeexai.com</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/5 mt-24 pt-10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[#475569] text-[10px] font-black uppercase tracking-widest">
-            © {new Date().getFullYear()} ZeexAI Global. Deployment Node: 0.1.4
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-500 text-xs font-medium tracking-tight">
+            © {new Date().getFullYear()} ZeexAI. All rights reserved.
           </p>
-          <div className="flex gap-10 text-[10px] font-black uppercase tracking-widest">
-            <Link to="/privacy" className="text-[#475569] hover:text-white transition-colors">Privacy Protocol</Link>
-            <Link to="/terms" className="text-[#475569] hover:text-white transition-colors">Operational Terms</Link>
+          <div className="flex gap-8 text-xs font-medium tracking-tight">
+            <Link to="/privacy" className="text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-gray-500 hover:text-white transition-colors">Terms of Use</Link>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+
 
 export default Footer;
