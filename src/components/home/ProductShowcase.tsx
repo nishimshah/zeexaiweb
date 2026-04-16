@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Shield, 
@@ -6,6 +6,8 @@ import {
   ShoppingCart, 
   Car, 
   Microscope,
+  ChevronLeft,
+  ChevronRight,
   ArrowRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -16,9 +18,9 @@ const products = [
     name: 'Z-Audit',
     subtitle: 'Speech Intelligence',
     icon: <Shield />,
-    image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=1000&auto=format&fit=crop&q=80',
-    description: 'Z-Audit enables organizations to extract structured intelligence from unstructured voice data using advanced neural speech recognition.',
-    capabilities: ['Multilingual Translation', 'Emotional Tone Analysis', 'Compliance Scoring'],
+    image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=1600&auto=format&fit=crop&q=80',
+    description: 'Extract structured intelligence from unstructured voice data using advanced neural speech recognition and emotional analysis.',
+    capabilities: ['Multilingual Translation', 'Emotional Tone Analysis', 'Compliance scoring'],
     color: '#2563EB'
   },
   {
@@ -26,7 +28,7 @@ const products = [
     name: 'Z-Factory',
     subtitle: 'Facility Intelligence',
     icon: <Settings />,
-    image: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=1000&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=1600&auto=format&fit=crop&q=80',
     description: 'Digitize physical operations using AI-powered monitoring for real-time safety enforcement and operational optimization.',
     capabilities: ['PPE Detection', 'Machine Utilization', '3D Digital Twin'],
     color: '#10B981'
@@ -36,7 +38,7 @@ const products = [
     name: 'Z-Market',
     subtitle: 'Consumer Intelligence',
     icon: <ShoppingCart />,
-    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1000&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&auto=format&fit=crop&q=80',
     description: 'Provide deep insights into customer behavior and retail performance using computer vision and data analytics.',
     capabilities: ['Footfall Tracking', 'Heatmap Analysis', 'Shelf Monitoring'],
     color: '#F59E0B'
@@ -46,7 +48,7 @@ const products = [
     name: 'Z-Tracs',
     subtitle: 'Traffic Management',
     icon: <Car />,
-    image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313?w=1000&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1494522358652-f30e61a60313?w=1600&auto=format&fit=crop&q=80',
     description: 'AI-powered traffic monitoring and enforcement solutions designed for modern smart city infrastructure.',
     capabilities: ['Density Estimation', 'Violation Detection', 'Vehicle Classification'],
     color: '#6366F1'
@@ -56,7 +58,7 @@ const products = [
     name: 'Z-Labs',
     subtitle: 'Innovation Hub',
     icon: <Microscope />,
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&auto=format&fit=crop&q=80',
     description: 'Continuous improvement, experimentation, and model optimization across all AI modules.',
     capabilities: ['Model Training', 'R&D Experimentation', 'Performance Benchmarking'],
     color: '#EC4899'
@@ -64,175 +66,241 @@ const products = [
 ];
 
 const ProductShowcase = () => {
-  const [centerIndex, setCenterIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
-  const nextSlide = () => {
-    setCenterIndex((prev) => (prev + 1) % products.length);
+  const activeProduct = products[currentIndex];
+
+  // Stable handleNext for auto-play
+  const handleNext = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev + 1) % products.length);
+    setTimeout(() => setIsAnimating(false), 800);
   };
 
-  const prevSlide = () => {
-    setCenterIndex((prev) => (prev - 1 + products.length) % products.length);
+  const handlePrev = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
+    setTimeout(() => setIsAnimating(false), 800);
   };
-
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setCenterIndex((prev) => (prev + 1) % products.length);
+    const timer = setInterval(() => {
+      handleNext();
     }, 5000);
-    return () => clearInterval(interval);
-  }, [isPaused, products.length]);
+    
+    return () => clearInterval(timer);
+  }, [isAnimating]); // Re-sync interval when animation state changes
 
-  const getCardStyle = (index: number) => {
-    const total = products.length;
-    let position = (index - centerIndex + total) % total;
-
-    if (position > total / 2) position -= total;
-
-    const isActive = position === 0;
-    const isStep1 = Math.abs(position) === 1;
-    const isStep2 = Math.abs(position) === 2;
-
-    let x = 0;
-    let scale = 0.5;
-    let zIndex = 0;
-    let opacity = 0;
-    let rotateY = 0;
-
-    if (isActive) {
-      x = 0;
-      scale = 1;
-      zIndex = 10;
-      opacity = 1;
-    } else if (isStep1) {
-      x = position > 0 ? 250 : -250;
-      scale = 0.8;
-      zIndex = 5;
-      opacity = 0.7;
-      rotateY = position > 0 ? -20 : 20;
-    } else if (isStep2) {
-      x = position > 0 ? 440 : -440;
-      scale = 0.6;
-      zIndex = 1;
-      opacity = 0.3;
-      rotateY = position > 0 ? -35 : 35;
-    } else {
-      x = position > 0 ? 600 : -600;
-      opacity = 0;
-    }
-
-    return { x, scale, zIndex, opacity, rotateY, filter: isActive ? 'blur(0px)' : 'blur(2px)' };
+  const resetAutoPlay = () => {
+    // No-op or minor logic here as useEffect [isAnimating] will handle it
   };
 
+  // Get the products to display as cards (next items)
+  const getCardItems = () => {
+    const items = [];
+    for (let i = 0; i < 4; i++) {
+      items.push(products[(currentIndex + i) % products.length]);
+    }
+    return items;
+  };
+
+  const cardItems = getCardItems();
+
   return (
-    <section className="relative py-24 bg-[#0a0e1a] overflow-hidden min-h-[75vh] flex flex-col justify-center">
-      {/* Background with subtle blur */}
+    <section className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#050810] flex items-center">
+      {/* Background Images Layer */}
       <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
-            key={centerIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.45 }}
+            key={activeProduct.id}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="absolute inset-0 bg-cover bg-center saturate-150"
-            style={{ backgroundImage: `url(${products[centerIndex].image})` }}
-          />
+            transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute inset-0"
+          >
+            <div 
+              className="absolute inset-0 bg-cover bg-center saturate-125"
+              style={{ backgroundImage: `url(${activeProduct.image})` }}
+            />
+            {/* Cinematic Gradients */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050810] via-[#050810]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-transparent to-[#050810]/40" />
+            <div className="absolute inset-0 backdrop-blur-[12px]" />
+          </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] via-transparent to-[#0a0e1a]"></div>
       </div>
 
-      <div className="container-default relative z-10 px-6">
-        <div className="text-center mb-12">
-          <motion.h2 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter"
-          >
-            ZeexAI <span className="text-[#2563EB]">Solutions</span>
-          </motion.h2>
-        </div>
-
-        <div 
-          className="relative h-[480px] flex items-center justify-center perspective-[1500px]"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+      <div className="container-default relative z-10 px-6 w-full h-full flex flex-col justify-between py-20">
+        {/* Top Label */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-4"
         >
-          {products.map((product, index) => {
-            const style = getCardStyle(index);
-            const isCenter = centerIndex === index;
-            const isHovered = hoveredIndex === index && isCenter;
+          <div className="w-8 h-[1px] bg-[#2563EB]" />
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 font-black">ZeexAI Ecosystem</span>
+        </motion.div>
 
-            return (
+        {/* Main Content Areas */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center flex-grow">
+          {/* Left: Text Content */}
+          <div className="lg:col-span-5 h-full flex flex-col justify-center">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={product.id}
-                animate={style}
-                transition={{ type: 'spring', stiffness: 260, damping: 25 }}
-                className={`absolute w-[280px] md:w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl cursor-pointer preserve-3d border border-white/5 ${isCenter ? 'z-50' : ''}`}
-                onMouseEnter={() => isCenter && setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => setCenterIndex(index)}
+                key={activeProduct.id}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="space-y-6"
               >
-                <div className="relative w-full h-full text-left">
-                  <img src={product.image} className="absolute inset-0 w-full h-full object-cover" alt={product.name} />
-                  <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? 'bg-[#0a0e1a]/90 backdrop-blur-md' : 'bg-gradient-to-t from-black/80 via-black/20 to-transparent'}`}></div>
-                  
-                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                    <div className={`transition-transform duration-500 ${isHovered ? '-translate-y-4' : 'translate-y-0'}`}>
-                        <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-xl flex items-center justify-center text-white mb-4 border border-white/20">
-                            {React.cloneElement(product.icon as React.ReactElement, { size: 20 })}
-                        </div>
-                        <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none mb-1">{product.name}</h3>
-                        <p className="text-[10px] text-[#2563EB] font-black uppercase tracking-widest">{product.subtitle}</p>
-                    </div>
-                    
-                    <motion.div
-                      initial={false}
-                      animate={{ 
-                        opacity: isHovered ? 1 : 0,
-                        height: isHovered ? 'auto' : 0,
-                        marginTop: isHovered ? 16 : 0
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-white/80 text-xs leading-relaxed mb-6 font-medium">
-                        {product.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {product.capabilities.map((cap, i) => (
-                          <span key={i} className="text-[8px] px-2 py-0.5 bg-white/10 rounded-full text-white/80 border border-white/10 uppercase font-black uppercase tracking-tight">
-                            {cap}
-                          </span>
-                        ))}
-                      </div>
-                      <Link 
-                        to="/services" 
-                        className="inline-flex items-center gap-2 text-white font-black uppercase tracking-widest text-[10px] hover:gap-3 transition-all"
-                      >
-                        Module Details <ArrowRight size={12} />
-                      </Link>
-                    </motion.div>
-                  </div>
+                <div>
+                   <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex items-center gap-3 text-[#2563EB] mb-2"
+                  >
+                    <span className="text-xs font-black uppercase tracking-widest">{activeProduct.subtitle}</span>
+                  </motion.div>
+                  <motion.h2 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none"
+                  >
+                    {activeProduct.name}
+                  </motion.h2>
                 </div>
-              </motion.div>
-            );
-          })}
 
-          {/* Nav Controls Removed */}
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="max-w-md text-white/70 text-lg md:text-xl font-medium leading-relaxed"
+                >
+                  {activeProduct.description}
+                </motion.p>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="flex flex-wrap gap-2 pt-4"
+                >
+                   {activeProduct.capabilities.map((cap, i) => (
+                    <span key={i} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] text-white/80 border border-white/10 font-bold uppercase tracking-tight">
+                      {cap}
+                    </span>
+                  ))}
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="pt-8"
+                >
+                  <Link 
+                    to="/services" 
+                    className="group flex items-center gap-4 text-white text-sm font-black uppercase tracking-[0.2em]"
+                  >
+                    <span className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#2563EB] group-hover:border-[#2563EB] transition-all duration-300">
+                      <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    Explore Module
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Right: Card Gallery */}
+          <div className="lg:col-span-7 flex items-center gap-6 overflow-visible">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {cardItems.map((product, idx) => (
+                <motion.div
+                  key={`${product.id}-${idx}`}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, x: 100 }}
+                  animate={{ 
+                    opacity: 1 - idx * 0.3, 
+                    scale: idx === 0 ? 1.05 : 1 - idx * 0.08, 
+                    x: 0,
+                    zIndex: idx === 0 ? 30 : 20 - idx,
+                    filter: `blur(${idx * 2}px) grayscale(${idx * 0.5})`
+                  }}
+                  exit={{ opacity: 0, scale: 1.1, x: -100 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    ease: [0.4, 0, 0.2, 1]
+                  }}
+                  className="relative flex-none w-[220px] md:w-[300px] aspect-[3.2/4.5] rounded-3xl overflow-hidden cursor-pointer group shadow-2xl"
+                  onClick={() => {
+                      resetAutoPlay();
+                      setCurrentIndex((currentIndex + idx) % products.length);
+                  }}
+                >
+                  <img 
+                    src={product.image} 
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    alt={product.name} 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-[10px] text-[#2563EB] font-black uppercase tracking-widest mb-1">{product.subtitle}</p>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none">{product.name}</h3>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
 
-        <div className="mt-8 flex justify-center gap-2">
-            {products.map((_, i) => (
-                <button
-                    key={i}
-                    onClick={() => setCenterIndex(i)}
-                    className={`h-1 rounded-full transition-all duration-500 ${
-                        centerIndex === i ? 'w-10 bg-[#2563EB]' : 'w-2 bg-white/10 hover:bg-white/20'
-                    }`}
-                />
-            ))}
+        {/* Bottom: Navigation and Progress */}
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mt-12">
+          {/* Controls */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => { resetAutoPlay(); handlePrev(); }}
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all backdrop-blur-sm"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button 
+              onClick={() => { resetAutoPlay(); handleNext(); }}
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all backdrop-blur-sm"
+              aria-label="Next slide"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="flex-grow flex flex-col gap-2">
+            <div className="relative h-[2px] w-full bg-white/10 rounded-full overflow-hidden">
+               <motion.div 
+                className="absolute left-0 top-0 h-full bg-[#2563EB]"
+                initial={{ width: "0%" }}
+                animate={{ width: `${((currentIndex + 1) / products.length) * 100}%` }}
+                transition={{ duration: 0.8 }}
+               />
+            </div>
+          </div>
+
+          {/* Counter */}
+          <div className="flex items-baseline gap-2">
+            <span className="text-4xl font-black text-white leading-none">
+              {(currentIndex + 1).toString().padStart(2, '0')}
+            </span>
+            <span className="text-xs font-black text-white/40 uppercase">/ {products.length.toString().padStart(2, '0')}</span>
+          </div>
         </div>
       </div>
     </section>
