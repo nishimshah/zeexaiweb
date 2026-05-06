@@ -2,12 +2,19 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import AwardsSection from '@/components/about/AwardsSection';
 import { ArrowRight, Shield, Users, Award, Globe, TrendingUp, ChevronRight, Linkedin } from 'lucide-react';
+import PartnersMarquee from '@/components/shared/PartnersMarquee';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import SEO from '@/components/shared/SEO';
 
 const About = () => {
   return (
     <Layout showFooter={false}>
+      <SEO 
+        title="About Our Vision" 
+        description="Pioneering AI Security. Zeex AI is redefining global security infrastructure with autonomous neural systems."
+      />
+
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center bg-[#0a0e1a] overflow-hidden pt-32 pb-24">
         <div className="absolute top-0 right-0 w-[50%] h-full bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
@@ -27,7 +34,7 @@ const About = () => {
       </section>
         
       {/* Vision Section */}
-      <section className="py-32 bg-white relative overflow-hidden">
+      <section className="pt-32 pb-16 bg-white relative overflow-hidden">
         <div className="container-default px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="animate-slide-in-left">
@@ -65,9 +72,12 @@ const About = () => {
           </div>
         </div>
       </section>
-
+ 
+      {/* Partners Trail Above Leadership */}
+      <PartnersMarquee className="py-8 bg-white" />
+ 
       {/* Leadership Section */}
-      <section className="py-32 bg-[#F4F7FB] border-t border-[#E2E8F0]">
+      <section className="pt-20 pb-16 bg-[#F4F7FB] border-t border-[#E2E8F0]">
         <div className="container-default px-8 text-center mb-24">
           <span className="inline-block px-4 py-2 bg-white text-[#2563EB] rounded-full text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-8">
             SYSTEM ARCHITECTS
@@ -99,7 +109,7 @@ const About = () => {
         </div>
       </section>
 
-      <AwardsSection />
+
 
       {/* CTA Section */}
       <section className="py-40 bg-[#0a0e1a] text-white relative overflow-hidden">

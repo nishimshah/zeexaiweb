@@ -10,9 +10,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-8 h-8">
-                <img src="https://i.ibb.co/hJqt2xCz/zeex-ai-logo.png" alt="ZeexAI" className="w-full h-full object-contain" />
-              </div>
+              <img src="/images/zeex_ai_logo.png" alt="ZeexAI" className="w-8 h-8 object-contain rounded-md" />
               <span className="font-bold text-xl tracking-tight uppercase">ZeexAI</span>
             </Link>
             <p className="text-gray-400 leading-relaxed text-sm font-medium">

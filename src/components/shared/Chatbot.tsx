@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
-
-// ... existing code ...
-const GEMINI_API_KEY = 'AIzaSyBvMkgKKqP6CYaP7XOVhSfaQ4fEQe5xpYI';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=' + GEMINI_API_KEY;
-// ... existing code ...
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, X, MessageSquare, Bot, User, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface Message {
   sender: 'user' | 'bot';
@@ -16,17 +17,27 @@ const Chatbot: React.FC = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (scrollAreaRef.current) {
+      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      if (scrollContainer) {
+        scrollContainer.scrollTo({
+          top: scrollContainer.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
   };
 
-  React.useEffect(() => {
-    scrollToBottom();
+  useEffect(() => {
+    if (open) {
+      setTimeout(scrollToBottom, 100);
+    }
   }, [messages, open, loading]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open && showWelcome && messages.length === 0) {
       setMessages([
         { sender: 'bot', text: '👋 Hi! I am Zeexia Chatbot. How can I help you today?' },
@@ -35,35 +46,34 @@ const Chatbot: React.FC = () => {
     }
   }, [open, showWelcome, messages.length]);
 
-  const fetchZzexiaData = async (query: string) => {
-    try {
-      const response = await fetch('https://zeex-website-backend-1.onrender.com/api/data?q=' + encodeURIComponent(query));
-      if (!response.ok) return null;
-      const data = await response.json();
-      return JSON.stringify(data);
-    } catch (e) {
-      return null;
-    }
-  };
-
   const sendMessage = async () => {
     if (!input.trim()) return;
     const userMessage: Message = { sender: 'user', text: input };
     setMessages((msgs) => [...msgs, userMessage]);
+    const currentInput = input;
     setInput('');
     setLoading(true);
 
     try {
-      const res = await fetch('https://zeex-website-backend-1.onrender.com/chat', {
+      // Try local backend first, fallback to production
+      const backendUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:5000/chat' 
+        : 'https://zeex-website-backend-1.onrender.com/chat';
+
+      const res = await fetch(backendUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: currentInput }),
       });
+      
+      if (!res.ok) throw new Error('Backend error');
+      
       const data = await res.json();
       const botText = data?.response || 'Sorry, I could not get a response.';
       setMessages((msgs) => [...msgs, { sender: 'bot', text: botText }]);
     } catch (e: any) {
-      setMessages((msgs) => [...msgs, { sender: 'bot', text: 'Error contacting backend.' }]);
+      console.error('Chat error:', e);
+      setMessages((msgs) => [...msgs, { sender: 'bot', text: 'Error contacting backend. Please ensure the backend server is running.' }]);
     }
     setLoading(false);
   };
@@ -73,122 +83,124 @@ const Chatbot: React.FC = () => {
   };
 
   return (
-    <div>
-      {/* Floating Chat Button */}
-      {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          style={{
-            position: 'fixed',
-            bottom: 24,
-            right: 24,
-            zIndex: 1000,
-            borderRadius: '50%',
-            width: 56,
-            height: 56,
-            background: '#2563eb',
-            color: 'white',
-            fontSize: 28,
-            border: 'none',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            cursor: 'pointer',
-          }}
-          aria-label="Open chatbot"
-        >
-          💬
-        </button>
-      )}
-      {/* Chat Window */}
-      {open && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 24,
-            right: 24,
-            width: 350,
-            maxHeight: 500,
-            background: 'white',
-            borderRadius: 12,
-            boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
-            zIndex: 1001,
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <div style={{ padding: 12, borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontWeight: 600 }}>Zeexia Chatbot</span>
-            <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}>×</button>
-          </div>
-          <div style={{ flex: 1, overflowY: 'auto', padding: 12, background: '#f9fafb' }}>
-            {messages.map((msg, idx) => (
-              <div key={idx} style={{ marginBottom: 10, display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start', alignItems: 'flex-end' }}>
-                {msg.sender === 'bot' && (
-                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: 8, fontSize: 18 }}>
-                    🤖
+    <div className="fixed bottom-6 right-6 z-50">
+      <AnimatePresence>
+        {!open && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setOpen(true)}
+            className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-2xl hover:bg-blue-700 transition-colors"
+            aria-label="Open chatbot"
+          >
+            <MessageSquare className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ y: 100, opacity: 0, scale: 0.9 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 100, opacity: 0, scale: 0.9 }}
+            className="w-[350px] sm:w-[400px]"
+          >
+            <Card className="border-none shadow-2xl overflow-hidden bg-white dark:bg-navy-800">
+              <CardHeader className="bg-blue-600 text-white p-4 flex flex-row items-center justify-between space-y-0">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <Bot className="w-5 h-5" />
                   </div>
-                )}
-                <div
-                  style={{
-                    display: 'inline-block',
-                    background: msg.sender === 'user' ? '#2563eb' : '#e5e7eb',
-                    color: msg.sender === 'user' ? 'white' : '#111',
-                    borderRadius: 16,
-                    padding: '8px 14px',
-                    maxWidth: '80%',
-                    wordBreak: 'break-word',
-                  }}
+                  <div>
+                    <h3 className="font-bold text-sm tracking-tight">Zeexia AI</h3>
+                    <p className="text-[10px] text-blue-100">Always active</p>
+                  </div>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={() => setOpen(false)}
+                  className="text-white hover:bg-white/20 h-8 w-8"
                 >
-                  {msg.text}
-                </div>
-                {msg.sender === 'user' && (
-                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 8, fontSize: 18, color: 'white' }}>
-                    🧑
+                  <X className="w-4 h-4" />
+                </Button>
+              </CardHeader>
+              
+              <CardContent className="p-0">
+                <ScrollArea ref={scrollAreaRef} className="h-[400px] p-4">
+                  <div className="flex flex-col gap-4">
+                    {messages.map((msg, idx) => (
+                      <motion.div
+                        initial={{ opacity: 0, x: msg.sender === 'user' ? 20 : -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        key={idx}
+                        className={`flex items-end gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        {msg.sender === 'bot' && (
+                          <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-navy-700 flex items-center justify-center flex-shrink-0">
+                            <Bot className="w-4 h-4 text-blue-600" />
+                          </div>
+                        )}
+                        <div
+                          className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
+                            msg.sender === 'user'
+                              ? 'bg-blue-600 text-white rounded-br-none'
+                              : 'bg-slate-100 dark:bg-navy-700 text-slate-900 dark:text-white rounded-bl-none'
+                          }`}
+                        >
+                          {msg.text}
+                        </div>
+                        {msg.sender === 'user' && (
+                          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
+                            <User className="w-4 h-4 text-white" />
+                          </div>
+                        )}
+                      </motion.div>
+                    ))}
+                    {loading && (
+                      <div className="flex items-end gap-2">
+                        <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-navy-700 flex items-center justify-center">
+                          <Bot className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <div className="bg-slate-100 dark:bg-navy-700 px-4 py-2 rounded-2xl rounded-bl-none">
+                          <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
-            {loading && (
-              <div style={{ marginBottom: 10, display: 'flex', alignItems: 'center' }}>
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: 8, fontSize: 18 }}>
-                  🤖
+                </ScrollArea>
+              </CardContent>
+
+              <CardFooter className="p-4 border-t dark:border-navy-700">
+                <div className="flex w-full items-center gap-2">
+                  <Input
+                    placeholder="Ask about Zeex AI..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    disabled={loading}
+                    className="flex-1 bg-slate-50 dark:bg-navy-900 border-none focus-visible:ring-1 focus-visible:ring-blue-600"
+                  />
+                  <Button 
+                    onClick={sendMessage} 
+                    disabled={loading || !input.trim()}
+                    size="icon"
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
                 </div>
-                <div style={{ background: '#e5e7eb', color: '#111', borderRadius: 16, padding: '8px 14px', fontStyle: 'italic' }}>
-                  Typing...
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-          <div style={{ padding: 12, borderTop: '1px solid #eee', display: 'flex', gap: 8 }}>
-            <input
-              type="text"
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Type your message..."
-              style={{ flex: 1, borderRadius: 8, border: '1px solid #ddd', padding: 8 }}
-              disabled={loading}
-            />
-            <button
-              onClick={sendMessage}
-              disabled={loading || !input.trim()}
-              style={{
-                background: '#2563eb',
-                color: 'white',
-                border: 'none',
-                borderRadius: 8,
-                padding: '0 16px',
-                fontWeight: 600,
-                cursor: loading ? 'not-allowed' : 'pointer',
-              }}
-            >
-              {loading ? '...' : 'Send'}
-            </button>
-          </div>
-        </div>
-      )}
+              </CardFooter>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-export default Chatbot; 
+export default Chatbot;

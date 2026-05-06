@@ -13,6 +13,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import OptimizedImage from '@/components/ui/OptimizedImage';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 
 // Remove motion imports and use more efficient IntersectionObserver directly
 const useIntersectionObserver = (options = {}) => {
@@ -226,6 +227,10 @@ const Index = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="AI. DATA. IMPACT." 
+        description="Transforming insights into action. Zeex AI turns everyday data into actionable intelligence for safer, smarter management."
+      />
       <div className="overflow-hidden bg-white">
         <Hero />
         <ProductShowcase />
@@ -321,44 +326,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Supported By Section */}
-        <section className="py-16 bg-[#F4F7FB] border-t border-[#E2E8F0]">
-          <div className="container-default px-6">
-            <FadeInSection className="text-center mb-12">
-              <span className="inline-block px-3 py-1 bg-white text-[#2563EB] rounded-full text-[9px] font-black uppercase tracking-widest mb-4 border border-[#E2E8F0]">
-                Trusted Partnerships
-              </span>
-              <h2 className="text-2xl md:text-3xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none">
-                Supported by <span className="text-[#2563EB]">Industry Leaders</span>
-              </h2>
-              <p className="text-base text-[#475569] max-w-xl mx-auto font-medium">
-                Our technology is recognized and supported by premier institutions and industry leaders.
-              </p>
-            </FadeInSection>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {supportedBy.map((partner, index) => (
-                <FadeInSection key={index} delay={index * 50}>
-                  <a
-                    href={partner.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block bg-white border border-[#E2E8F0] rounded-2xl p-6 hover:shadow-lg transition-all text-center"
-                  >
-                    <div className="h-10 flex items-center justify-center">
-                      <OptimizedImage 
-                        src={partner.logo} 
-                        alt={partner.name} 
-                        className="max-h-full max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
-                        width={200}
-                        height={80}
-                      />
-                    </div>
-                  </a>
-                </FadeInSection>
-              ))}
-            </div>
-          </div>
-        </section>
       </div>
     </Layout>
   );

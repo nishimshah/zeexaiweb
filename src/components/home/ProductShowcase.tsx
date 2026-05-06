@@ -263,7 +263,7 @@ const ProductShowcase = () => {
         </div>
 
         {/* Bottom: Navigation and Progress */}
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mt-12">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-12">
           {/* Controls */}
           <div className="flex items-center gap-4">
             <button 
@@ -281,19 +281,6 @@ const ProductShowcase = () => {
               <ChevronRight size={24} />
             </button>
           </div>
-
-          {/* Progress Bar */}
-          <div className="flex-grow flex flex-col gap-2">
-            <div className="relative h-[2px] w-full bg-white/10 rounded-full overflow-hidden">
-               <motion.div 
-                className="absolute left-0 top-0 h-full bg-[#2563EB]"
-                initial={{ width: "0%" }}
-                animate={{ width: `${((currentIndex + 1) / products.length) * 100}%` }}
-                transition={{ duration: 0.8 }}
-               />
-            </div>
-          </div>
-
           {/* Counter */}
           <div className="flex items-baseline gap-2">
             <span className="text-4xl font-black text-white leading-none">
