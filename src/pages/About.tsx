@@ -62,7 +62,7 @@ const About = () => {
                   <img 
                     src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop" 
                     alt="Industrial Innovation" 
-                    className="w-full h-full object-cover rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover rounded-[2.5rem] transition-all duration-700"
                   />
                 </div>
                 {/* Decorative element */}
@@ -95,7 +95,7 @@ const About = () => {
           ].map((member, idx) => (
             <div key={idx} className="group bg-white rounded-[2.5rem] overflow-hidden border border-[#E2E8F0] hover:border-[#2563EB] hover:shadow-2xl transition-all duration-500">
               <div className="aspect-[4/5] overflow-hidden bg-gray-100 relative">
-                <img src={member.img} alt={member.name} className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
+                <img src={member.img} alt={member.name} className="w-full h-full object-cover opacity-100 group-hover:scale-110 transition-all duration-700" />
               </div>
               <div className="p-10">
                 <h3 className="text-2xl font-black text-[#0F172A] uppercase tracking-tight mb-2 leading-none">{member.name}</h3>

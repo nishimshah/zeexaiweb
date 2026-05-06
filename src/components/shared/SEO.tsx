@@ -18,7 +18,7 @@ const SEO: React.FC<SEOProps> = ({
   url = "https://zeexai.com/",
   type = "website"
 }) => {
-  const siteTitle = `${title} | Zeex AI`;
+  const siteTitle = `${title} | ZeexAI`;
   
   return (
     <Helmet>

@@ -66,7 +66,7 @@ const BlogPostCard: React.FC<{ post: BlogPost }> = React.memo(({ post }) => (
         <OptimizedImage 
           src={post.image} 
           alt={post.title} 
-          className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+          className="w-full h-full object-cover opacity-100 group-hover:scale-110 transition-all duration-700"
           width={500}
           height={300}
         />
@@ -233,11 +233,12 @@ const Index = () => {
       />
       <div className="overflow-hidden bg-white">
         <Hero />
-        <ProductShowcase />
         
         <Suspense fallback={<div className="h-screen bg-white"></div>}>
           <SolutionsPreview />
         </Suspense>
+
+        <ProductShowcase />
 
         {/* Implementation Workflow Section */}
         <section className="py-16 bg-[#F4F7FB] overflow-hidden border-t border-[#E2E8F0]">

@@ -90,7 +90,7 @@ const SolutionsPreview = () => {
             variants={fadeInUp}
             className="text-2xl md:text-3xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none"
           >
-            AI Security for <span className="text-[#2563EB]">Every Environment</span>
+            AI Security for Every Environment
           </motion.h2>
           <motion.p 
             variants={fadeInUp}
@@ -112,7 +112,7 @@ const SolutionsPreview = () => {
                 <OptimizedImage 
                   src={card.image} 
                   alt={card.title} 
-                  className="w-full h-full object-cover grayscale opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-all duration-700"
                   width={600}
                   height={800}
                 />
@@ -128,7 +128,7 @@ const SolutionsPreview = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-black text-white mb-2 leading-tight uppercase tracking-tight group-hover:text-[#2563EB] transition-colors">{card.title}</h3>
+                  <h3 className="text-lg font-black text-white mb-2 leading-tight uppercase tracking-tight group-hover:text-white transition-colors">{card.title}</h3>
                   <p className="text-white/80 text-[10px] font-medium leading-relaxed group-hover:text-white transition-colors">
                     {card.description}
                   </p>
@@ -141,7 +141,7 @@ const SolutionsPreview = () => {
         <div className="text-center mt-12">
           <Link 
             to="/services" 
-            className="inline-flex items-center px-8 py-3 bg-[#2563EB] text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all hover:gap-3 group text-xs uppercase tracking-widest"
+            className="inline-flex items-center px-8 py-3 bg-black text-white font-bold rounded-lg shadow-lg hover:bg-gray-800 transition-all hover:gap-3 group text-xs uppercase tracking-widest"
           >
             View all services
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-all" />

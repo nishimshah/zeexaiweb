@@ -149,7 +149,7 @@ const Industries = () => {
             DEPLOYMENT SECTORS
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter leading-none">
-            Cross-Sector <span className="text-[#2563EB]">Intelligence</span>
+            Cross-Sector Intelligence
           </h2>
           <p className="text-xl text-[#475569] max-w-2xl mx-auto font-medium">
             Industrial-grade AI solutions engineered for specialized global industries.
@@ -171,10 +171,10 @@ const Industries = () => {
                 to={industry.link}
                 className="group block bg-white rounded-xl p-8 border border-[#E2E8F0] hover:shadow-xl hover:border-[#2563EB] transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-lg bg-[#F4F7FB] flex items-center justify-center text-[#1E3A8A] mb-6 group-hover:bg-[#1E3A8A] group-hover:text-white transition-all transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-[#F4F7FB] flex items-center justify-center text-[#1E3A8A] mb-6 group-hover:bg-black group-hover:text-white transition-all transform duration-300">
                   {industry.icon}
                 </div>
-                <h3 className="text-lg font-black text-[#0F172A] mb-3 uppercase tracking-tight group-hover:text-[#2563EB] transition-colors">
+                <h3 className="text-lg font-black text-[#0F172A] mb-3 uppercase tracking-tight group-hover:text-black transition-colors">
                   {industry.name}
                 </h3>
                 <p className="text-sm text-[#475569] font-medium leading-relaxed">
@@ -193,7 +193,7 @@ const Industries = () => {
         >
           <Link
             to="/solutions"
-            className="inline-flex items-center px-12 py-6 bg-[#1E3A8A] text-white font-black rounded-xl uppercase tracking-widest text-sm shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+            className="inline-flex items-center px-12 py-6 bg-black text-white font-black rounded-xl uppercase tracking-widest text-sm shadow-xl hover:bg-gray-800 transition-all hover:-translate-y-1"
           >
             All Integration Vectors
             <ArrowRight className="ml-3 w-5 h-5" />

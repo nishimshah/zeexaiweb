@@ -222,7 +222,7 @@ const Achievements = () => {
           </h2>
 
           {/* Section Switcher (Tabs) */}
-          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+          <div className="flex overflow-x-auto pb-4 hide-scrollbar lg:justify-center gap-3 max-w-4xl mx-auto -mx-8 px-8">
             {achievementCategories.map((tab) => (
               <button
                 key={tab.id}
@@ -231,7 +231,7 @@ const Achievements = () => {
                   setActiveIndex(0);
                 }}
                 className={cn(
-                  "flex items-center gap-3 px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[9px] border transition-all duration-300",
+                  "flex items-center gap-3 px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[9px] border transition-all duration-300 whitespace-nowrap",
                   activeTab === tab.id 
                     ? "bg-[#0F172A] text-white border-[#0F172A] shadow-xl" 
                     : "bg-white text-[#475569] border-[#E2E8F0] hover:border-[#0F172A]"
@@ -246,16 +246,16 @@ const Achievements = () => {
 
         {/* Main Achievement Console */}
         <div className="max-w-7xl mx-auto">
-          <div className="relative bg-[#F8F9FA] border-2 border-[#0F172A] rounded-[3rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] flex flex-col lg:flex-row min-h-[650px]">
+          <div className="relative bg-[#F8F9FA] border-2 border-[#0F172A] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] flex flex-col lg:flex-row min-h-auto lg:min-h-[650px]">
             
             {/* Left: Interactive Scan List */}
-            <div className="lg:w-[60%] flex flex-col bg-white">
-              <div className="p-8 border-b border-gray-100 flex items-center justify-between">
+            <div className="w-full lg:w-[60%] flex flex-col bg-white">
+              <div className="p-6 md:p-8 border-b border-gray-100 flex items-center justify-between">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">Registry / {activeTab}</span>
                 <span className="text-[10px] font-black text-blue-600 font-mono">[{filteredAchievements.length} ITEMS FOUND]</span>
               </div>
               
-              <div className="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-10 space-y-4">
+              <div className="flex-1 overflow-y-auto custom-scrollbar p-4 lg:p-10 space-y-3 md:space-y-4 max-h-[400px] lg:max-h-none">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
@@ -305,7 +305,7 @@ const Achievements = () => {
             </div>
 
             {/* Right: Technical Detail Panel */}
-            <div className="lg:w-[40%] bg-[#0F172A] text-white relative flex flex-col overflow-hidden">
+            <div className="w-full lg:w-[40%] bg-[#0F172A] text-white relative flex flex-col overflow-hidden">
                {/* Animated Background Element */}
                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,_rgba(37,99,235,0.15)_0%,_transparent_70%)] pointer-events-none"></div>
                
@@ -316,14 +316,14 @@ const Achievements = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
                     transition={{ duration: 0.4, ease: "circOut" }}
-                    className="flex-1 flex flex-col p-10 lg:p-12 relative z-10"
+                    className="flex-1 flex flex-col p-8 lg:p-12 relative z-10"
                  >
                     {/* Media Preview */}
-                    <div className="relative aspect-video rounded-3xl overflow-hidden mb-10 border border-white/10 shadow-2xl group">
+                    <div className="relative aspect-video rounded-2xl lg:rounded-3xl overflow-hidden mb-8 lg:mb-10 border border-white/10 shadow-2xl group">
                        <img 
                          src={currentAchievement?.image} 
                          alt={currentAchievement?.title}
-                         className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                         className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100"
                        />
                        <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] to-transparent opacity-60"></div>
                        <div className="absolute bottom-6 left-6 flex items-center gap-2">
@@ -384,6 +384,13 @@ const Achievements = () => {
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #CBD5E1;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </section>

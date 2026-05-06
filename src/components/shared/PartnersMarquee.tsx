@@ -22,7 +22,7 @@ const PartnersMarquee: React.FC<{ className?: string }> = ({ className = "" }) =
       >
         {duplicatePartners.map((partner, index) => (
           <div key={`${partner.id}-${index}`} className="flex-none">
-            <div className="relative w-[150px] md:w-[200px] h-24 bg-white rounded-[1.2rem] shadow-sm border border-gray-100 flex flex-col items-center justify-center p-5 grayscale transition-all duration-500">
+            <div className="relative w-[150px] md:w-[200px] h-24 bg-white rounded-[1.2rem] shadow-sm border border-gray-100 flex flex-col items-center justify-center p-5 transition-all duration-500">
               <img src={partner.logo} alt={partner.name} className="max-h-[55%] max-w-full object-contain" />
               <span className="mt-2 text-[8px] font-black text-[#2563EB]/40 uppercase tracking-widest">{partner.name}</span>
             </div>

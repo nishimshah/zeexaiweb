@@ -248,7 +248,7 @@ const Solutions = () => {
               >
                 <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-[#E2E8F0] overflow-hidden hover:border-[#2563EB] hover:shadow-2xl transition-all duration-500">
                   <div className="aspect-video relative overflow-hidden">
-                    <img src={solution.image} alt={solution.title} className="w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-100" />
+                    <img src={solution.image} alt={solution.title} className="w-full h-full object-cover opacity-100 transition-all duration-700 group-hover:scale-110" />
                     <div className="absolute top-6 left-6">
                       <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-xl border border-[#E2E8F0] group-hover:scale-110 transition-transform">
                         <solution.icon className="h-7 w-7 text-[#2563EB]" />

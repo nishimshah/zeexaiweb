@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Shield, ShoppingCart, Factory, Car, Microscope, Check, ArrowRight, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -120,6 +120,20 @@ const products = [
 ];
 
 const ProductsPage = () => {
+  useEffect(() => {
+    // Handle hash scrolling on initial load
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <Layout showFooter={true}>
       {/* Hero Section */}
@@ -176,7 +190,7 @@ const ProductsPage = () => {
                           <OptimizedImage 
                             src={product.image} 
                             alt={product.title} 
-                            className="w-full aspect-[4/3] object-cover rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                            className="w-full aspect-[4/3] object-cover rounded-[2.5rem] transition-all duration-700 group-hover:scale-105"
                             width={600}
                             height={450}
                           />

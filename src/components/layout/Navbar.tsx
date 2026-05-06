@@ -59,19 +59,28 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [mobileMenuOpen]);
+
   return (
-    <div className="fixed top-6 left-0 w-full z-[100] px-6 pointer-events-none">
+    <div className="fixed top-2 md:top-6 left-0 w-full z-[100] px-4 md:px-6 pointer-events-none">
       <header className={cn(
-        "container-default mx-auto flex justify-between items-center px-6 py-3 rounded-full transition-all duration-700 ease-in-out pointer-events-auto",
+        "container-default mx-auto flex justify-between items-center px-4 md:px-6 py-2.5 md:py-3 rounded-full transition-all duration-700 ease-in-out pointer-events-auto",
         isScrolled 
           ? "bg-white/80 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.08)]" 
           : "bg-white/40 backdrop-blur-md border border-white/10 shadow-sm"
       )}>
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/images/zeex_ai_logo.png" alt="Zeex AI" className="w-10 h-10 object-contain rounded-lg shadow-sm" />
+        <Link to="/" className="flex items-center gap-2 md:gap-3">
+          <img src="/images/zeex_ai_logo.png" alt="Zeex AI" className="w-8 h-8 md:w-10 md:h-10 object-contain rounded-lg shadow-sm" />
           <span className={cn(
-            "font-black text-xl tracking-tighter uppercase transition-colors duration-300",
+            "font-black text-lg md:text-xl tracking-tighter uppercase transition-colors duration-300",
             isScrolled ? "text-black" : "text-white"
           )}>
             ZEEX<span className="text-[#3b82f6]">AI</span>
@@ -102,7 +111,7 @@ const Navbar = () => {
                         to={dropdownItem.path}
                         className="flex items-center gap-4 rounded-2xl p-3 hover:bg-gray-50 transition-all duration-300"
                       >
-                        <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-blue-600">
+                        <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-black/60 group-hover:text-black transition-colors">
                           {dropdownItem.icon}
                         </div>
                         <div>
@@ -122,7 +131,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-4">
           <Link 
             to="/contact"
-            className="px-7 py-3 bg-black text-white font-black uppercase tracking-widest text-[9px] rounded-full transition-all hover:bg-blue-600 hover:shadow-lg active:scale-95 shadow-md"
+            className="px-7 py-3 bg-black text-white font-black uppercase tracking-widest text-[9px] rounded-full transition-all hover:bg-gray-800 hover:shadow-lg active:scale-95 shadow-md"
           >
             Get Demo
           </Link>
@@ -135,33 +144,62 @@ const Navbar = () => {
             isScrolled ? "text-black hover:bg-gray-100" : "text-white hover:bg-white/10"
           )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle Menu"
         >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay - Premium Dark Theme */}
       <div className={cn(
-        "fixed inset-0 bg-white/95 backdrop-blur-2xl z-[90] flex flex-col justify-center items-center gap-8 lg:hidden transition-all duration-700 ease-in-out",
-        mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible scale-110"
+        "fixed inset-0 bg-[#050810] z-[200] lg:hidden transition-all duration-500 ease-in-out overflow-y-auto px-6 py-24",
+        mobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-10"
       )}>
-        {navItems.map((item) => (
-          <Link
-            key={item.title}
-            to={item.path}
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-4xl font-black text-black uppercase tracking-tighter hover:text-blue-600 transition-colors"
-          >
-            {item.title}
-          </Link>
-        ))}
-        <Link 
-          to="/contact" 
+        {/* Abstract Background Glow for Mobile Menu */}
+        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_20%,_rgba(59,130,246,0.1)_0%,_transparent_60%)] pointer-events-none"></div>
+        
+        {/* Mobile Close Button */}
+        <button 
           onClick={() => setMobileMenuOpen(false)}
-          className="px-12 py-5 bg-black text-white font-black uppercase tracking-widest rounded-full text-lg shadow-2xl"
+          className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50"
         >
-          Get Demo
-        </Link>
+          <X size={20} />
+        </button>
+
+        <nav className="relative z-10 flex flex-col gap-8 items-center text-center">
+          {navItems.map((item) => (
+            <div key={item.title} className="w-full flex flex-col items-center gap-4">
+              <Link
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-2xl font-black text-white uppercase tracking-widest hover:text-white/60 transition-all duration-300 block"
+              >
+                {item.title}
+              </Link>
+              {item.dropdown && (
+                <div className="flex flex-col gap-3">
+                  {item.dropdown.map((subItem) => (
+                    <Link
+                      key={subItem.path}
+                      to={subItem.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] hover:text-blue-500 transition-colors"
+                    >
+                      {subItem.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          <Link 
+            to="/contact" 
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full max-w-xs mt-6 px-10 py-4 bg-white text-black font-black uppercase tracking-widest rounded-full text-sm shadow-xl text-center transition-transform active:scale-95 hover:bg-gray-200"
+          >
+            Get Demo
+          </Link>
+        </nav>
       </div>
     </div>
   );

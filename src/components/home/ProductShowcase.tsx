@@ -111,7 +111,7 @@ const ProductShowcase = () => {
   const cardItems = getCardItems();
 
   return (
-    <section className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#050810] flex items-center">
+    <section className="relative w-full min-h-screen lg:h-screen overflow-hidden bg-[#050810] flex items-center py-12 lg:py-0">
       {/* Background Images Layer */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="popLayout" initial={false}>
@@ -135,21 +135,21 @@ const ProductShowcase = () => {
         </AnimatePresence>
       </div>
 
-      <div className="container-default relative z-10 px-6 w-full h-full flex flex-col justify-between py-20">
+      <div className="container-default relative z-10 px-6 w-full h-full flex flex-col justify-between py-12 lg:py-20">
         {/* Top Label */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-4"
+          className="flex items-center gap-4 mb-8 lg:mb-0"
         >
           <div className="w-8 h-[1px] bg-[#2563EB]" />
           <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 font-black">ZeexAI Ecosystem</span>
         </motion.div>
 
         {/* Main Content Areas */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center flex-grow">
-          {/* Left: Text Content */}
-          <div className="lg:col-span-5 h-full flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-grow">
+          {/* Left: Text Content - Centered on mobile */}
+          <div className="lg:col-span-5 h-full flex flex-col justify-center text-center lg:text-left">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeProduct.id}
@@ -157,7 +157,7 @@ const ProductShowcase = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="space-y-6"
+                className="space-y-4 md:space-y-6 flex flex-col items-center lg:items-start"
               >
                 <div>
                    <motion.div 
@@ -172,7 +172,7 @@ const ProductShowcase = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none"
+                    className="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none"
                   >
                     {activeProduct.name}
                   </motion.h2>
@@ -182,7 +182,7 @@ const ProductShowcase = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="max-w-md text-white/70 text-lg md:text-xl font-medium leading-relaxed"
+                  className="max-w-md text-white/70 text-base md:text-xl font-medium leading-relaxed"
                 >
                   {activeProduct.description}
                 </motion.p>
@@ -191,10 +191,10 @@ const ProductShowcase = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="flex flex-wrap gap-2 pt-4"
+                  className="flex flex-wrap gap-2 pt-2 md:pt-4"
                 >
                    {activeProduct.capabilities.map((cap, i) => (
-                    <span key={i} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] text-white/80 border border-white/10 font-bold uppercase tracking-tight">
+                    <span key={i} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[9px] md:text-[10px] text-white/80 border border-white/10 font-bold uppercase tracking-tight">
                       {cap}
                     </span>
                   ))}
@@ -204,14 +204,14 @@ const ProductShowcase = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="pt-8"
+                  className="pt-4 md:pt-8"
                 >
                   <Link 
                     to="/services" 
-                    className="group flex items-center gap-4 text-white text-sm font-black uppercase tracking-[0.2em]"
+                    className="group inline-flex items-center gap-4 text-white text-sm font-black uppercase tracking-[0.2em]"
                   >
-                    <span className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#2563EB] group-hover:border-[#2563EB] transition-all duration-300">
-                      <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#2563EB] group-hover:border-[#2563EB] transition-all duration-300">
+                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </span>
                     Explore Module
                   </Link>
@@ -220,8 +220,8 @@ const ProductShowcase = () => {
             </AnimatePresence>
           </div>
 
-          {/* Right: Card Gallery */}
-          <div className="lg:col-span-7 flex items-center gap-6 overflow-visible">
+          {/* Right: Card Gallery - Hidden on mobile */}
+          <div className="hidden lg:flex lg:col-span-7 items-center gap-4 md:gap-6 overflow-x-auto lg:overflow-visible pb-8 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 scrollbar-hide">
             <AnimatePresence mode="popLayout" initial={false}>
               {cardItems.map((product, idx) => (
                 <motion.div
@@ -233,14 +233,14 @@ const ProductShowcase = () => {
                     scale: idx === 0 ? 1.05 : 1 - idx * 0.08, 
                     x: 0,
                     zIndex: idx === 0 ? 30 : 20 - idx,
-                    filter: `blur(${idx * 2}px) grayscale(${idx * 0.5})`
+                    filter: `blur(${idx * 2}px)`
                   }}
                   exit={{ opacity: 0, scale: 1.1, x: -100 }}
                   transition={{ 
                     duration: 0.8, 
                     ease: [0.4, 0, 0.2, 1]
                   }}
-                  className="relative flex-none w-[220px] md:w-[300px] aspect-[3.2/4.5] rounded-3xl overflow-hidden cursor-pointer group shadow-2xl"
+                  className="relative flex-none w-[200px] md:w-[300px] aspect-[3.2/4.5] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer group shadow-2xl"
                   onClick={() => {
                       resetAutoPlay();
                       setCurrentIndex((currentIndex + idx) % products.length);
@@ -252,9 +252,9 @@ const ProductShowcase = () => {
                     alt={product.name} 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-[10px] text-[#2563EB] font-black uppercase tracking-widest mb-1">{product.subtitle}</p>
-                    <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none">{product.name}</h3>
+                  <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-[9px] md:text-[10px] text-[#2563EB] font-black uppercase tracking-widest mb-1">{product.subtitle}</p>
+                    <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight leading-none">{product.name}</h3>
                   </div>
                 </motion.div>
               ))}

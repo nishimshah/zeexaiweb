@@ -63,7 +63,7 @@ const TrustedBy = () => {
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-w-full max-h-full object-contain p-8 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all"
+                  className="max-w-full max-h-full object-contain p-8 opacity-100 transition-all"
                 />
               </div>
             ))}

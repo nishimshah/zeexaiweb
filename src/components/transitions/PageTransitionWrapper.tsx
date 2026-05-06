@@ -16,26 +16,28 @@ const PageTransitionWrapper: React.FC<PageTransitionWrapperProps> = ({ children 
 
   useEffect(() => {
     if (location.pathname !== prevLocationRef.current.pathname) {
-      setIsTransitioning(true);
+      if (window.innerWidth < 768) {
+        // Instant navigation on mobile
+        setDisplayLocation(location);
+        setIsTransitioning(false);
+      } else {
+        setIsTransitioning(true);
+      }
     }
     prevLocationRef.current = location;
   }, [location]);
 
   const handleTransitionComplete = () => {
     setDisplayLocation(location);
+    setIsTransitioning(false);
     
     if (contentRef.current) {
       gsap.from(contentRef.current, {
         opacity: 0,
-        y: 20,
-        duration: 0.5,
-        ease: 'power2.out',
-        onComplete: () => {
-          setIsTransitioning(false);
-        }
+        y: 10,
+        duration: 0.4,
+        ease: 'power2.out'
       });
-    } else {
-      setIsTransitioning(false);
     }
   };
 

@@ -299,7 +299,7 @@ const BlogPost = () => {
         <img
           src={post.image}
           alt={post.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale"
+          className="absolute inset-0 w-full h-full object-cover opacity-100"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-transparent" />
         <div className="container-default relative z-10 w-full pb-16 pt-32 px-8">

@@ -188,7 +188,7 @@ const Blog = () => {
                     <img 
                       src={post.image} 
                       alt={post.title} 
-                      className="w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-100"
+                      className="w-full h-full object-cover opacity-100 transition-all duration-700 group-hover:scale-110"
                     />
                   </div>
                   <div className="p-10 flex flex-col flex-grow">

@@ -999,7 +999,7 @@ const ServiceDetail = () => {
                 <img 
                   src={service.image} 
                   alt={service.title}
-                  className="w-full h-auto object-cover aspect-video grayscale group-hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-auto object-cover aspect-video transition-all duration-700 scale-105 group-hover:scale-100"
                 />
               </div>
               
@@ -1108,7 +1108,7 @@ const ServiceDetail = () => {
                   <img 
                     src={feature.image} 
                     alt={feature.title}
-                    className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 </div>
                 <h3 className="text-xl font-black text-[#0F172A] mb-3 uppercase tracking-tight group-hover:text-[#2563EB] transition-colors">{feature.title}</h3>
