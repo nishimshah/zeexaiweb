@@ -73,8 +73,6 @@ const About = () => {
         </div>
       </section>
  
-      {/* Partners Trail Above Leadership */}
-      <PartnersMarquee className="py-8 bg-white" />
  
       {/* Leadership Section */}
       <section className="pt-20 pb-16 bg-[#F4F7FB] border-t border-[#E2E8F0]">

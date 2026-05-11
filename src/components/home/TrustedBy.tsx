@@ -93,7 +93,7 @@ const TrustedBy = () => {
           100% { transform: translateX(-33.33%); }
         }
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation: marquee 25s linear infinite;
         }
         .group:hover .animate-marquee {
           animation-play-state: paused;
