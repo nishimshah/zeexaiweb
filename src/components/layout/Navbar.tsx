@@ -133,8 +133,8 @@ const Navbar = () => {
         {/* Mobile menu toggle */}
         <button
           className={cn(
-            "lg:hidden p-2 rounded-full transition-colors",
-            isScrolled ? "text-black hover:bg-gray-100" : "text-white hover:bg-white/10"
+            "lg:hidden p-3 rounded-full transition-all active:scale-95",
+            isScrolled || mobileMenuOpen ? "text-[#0F172A] bg-gray-100/50" : "text-white bg-black/20 backdrop-blur-md border border-white/10"
           )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Menu"
@@ -145,7 +145,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay - Premium Dark Theme */}
       <div className={cn(
-        "fixed inset-0 bg-[#050810] z-[200] lg:hidden transition-all duration-500 ease-in-out overflow-y-auto px-6 py-24",
+        "fixed inset-0 bg-[#050810] z-[200] lg:hidden transition-all duration-500 ease-in-out overflow-y-auto px-6 py-24 pointer-events-auto",
         mobileMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-10"
       )}>
         {/* Abstract Background Glow for Mobile Menu */}
