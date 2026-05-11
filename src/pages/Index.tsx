@@ -94,21 +94,20 @@ const BlogPostCard: React.FC<{ post: BlogPost }> = React.memo(({ post }) => (
 
 // Animation component to reduce code duplication
 const FadeInSection = ({ children, delay = 0, className = "" }) => {
-  const [setObserverRef, isVisible] = useIntersectionObserver() as [(node: HTMLDivElement | null) => void, boolean];
-  
   return (
-    <div 
-      ref={(node) => setObserverRef(node)}
-      className={`transition-all duration-700 ${className} ${isVisible 
-        ? 'opacity-100 translate-y-0' 
-        : 'opacity-0 translate-y-8'}`}
-      style={{ 
-        transitionDelay: `${delay}ms`,
-        willChange: 'opacity, transform'
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ 
+        duration: 0.8, 
+        delay: delay / 1000, 
+        ease: [0.16, 1, 0.3, 1] 
       }}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
@@ -233,6 +232,7 @@ const Index = () => {
       />
       <div className="overflow-hidden bg-white">
         <Hero />
+        <TrustedBy />
         
         <Suspense fallback={<div className="h-screen bg-white"></div>}>
           <SolutionsPreview />
@@ -247,7 +247,7 @@ const Index = () => {
               <span className="inline-block px-3 py-1 bg-white text-[#2563EB] rounded-full text-[9px] font-black uppercase tracking-widest mb-4 border border-[#E2E8F0]">
                 Our Methodology
               </span>
-              <h2 className="text-2xl md:text-3xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none">
+              <h2 className="text-4xl md:text-5xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none">
                 Precision <span className="text-[#2563EB]">Implementation</span> Process
               </h2>
               <p className="text-base text-[#475569] max-w-2xl mx-auto font-medium">
@@ -287,7 +287,7 @@ const Index = () => {
             className="container-default text-center relative z-10"
           >
             <div className="max-w-2xl mx-auto px-6">
-              <h2 className="text-3xl md:text-5xl font-black mb-6 uppercase tracking-tighter leading-none">Ready to Enhance Your Security?</h2>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 uppercase tracking-tighter leading-none">Ready to Enhance Your Security?</h2>
               <p className="text-base md:text-lg mb-8 text-white/80 font-medium">
                 Our team is ready to help you implement the perfect security solution for your needs.
               </p>
@@ -306,7 +306,7 @@ const Index = () => {
           <div className="container-default px-6">
             <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
               <FadeInSection>
-                <h2 className="text-2xl md:text-3xl font-black text-[#0F172A] uppercase tracking-tighter leading-none mb-2">Latest Insights</h2>
+                <h2 className="text-4xl md:text-5xl font-black text-[#0F172A] uppercase tracking-tighter leading-none mb-2">Latest Insights</h2>
                 <p className="text-base text-[#475569] font-medium">Stay updated with the latest in AI security technology</p>
               </FadeInSection>
               <FadeInSection delay={200}>

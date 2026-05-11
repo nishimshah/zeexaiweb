@@ -37,6 +37,43 @@ const AchievementsPage = () => {
         </div>
       </section>
 
+      {/* Moving Trail – right below the hero box */}
+      <div className="bg-[#0A0F1A] py-5 relative overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0A0F1A] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0A0F1A] to-transparent z-10 pointer-events-none"></div>
+        <div className="flex gap-16 whitespace-nowrap" style={{ animation: 'trailScroll 22s linear infinite' }}>
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex gap-16 items-center">
+              {[
+                "AI Impact Summit 2026 · 1st Prize",
+                "AI-HSE Best Startup Award",
+                "E-Summit IIT Madras · 1st Prize",
+                "EO GSEA Jaipur Winner",
+                "TechXConf Excellence Award",
+                "MinT-athon Top 9 · Bosch Funded",
+                "NIRMAAN IITM Incubated",
+                "TNGSS Top 5 AI Startup",
+                "UP Govt Trial Invitation",
+                "Jharkhand Governor Meeting",
+                "AWS Summit Bengaluru 2025",
+                "Tamil Nadu Global Startup Summit",
+              ].map((label, idx) => (
+                <div key={idx} className="flex items-center gap-4 flex-shrink-0">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></div>
+                  <span className="text-[11px] font-black text-white/70 uppercase tracking-widest">{label}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <style>{`
+          @keyframes trailScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-33.33%); }
+          }
+        `}</style>
+      </div>
+
       <div className="bg-white">
         <AchievementsSection />
       </div>

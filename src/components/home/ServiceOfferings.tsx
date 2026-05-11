@@ -139,16 +139,13 @@ const ServiceOfferings = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-sm font-bold mb-4">
-            OUR SPECIALIZED SERVICES
+          <span className="inline-block px-4 py-2 bg-[#F4F7FB] text-[#1E3A8A] rounded-full text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-6">
+            Our Specialized Services
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">
-            Utilize your data's full potential with our{' '}
-            <span className="text-[#2563EB]">
-              Expert Solutions
-            </span>
+          <h2 className="text-4xl md:text-5xl font-black text-[#0F172A] mb-6 uppercase tracking-tighter leading-none">
+            Expert <span className="text-[#2563EB]">AI Solutions</span>
           </h2>
-          <p className="text-lg text-[#475569] max-w-3xl mx-auto">
+          <p className="text-base text-[#475569] max-w-3xl mx-auto font-medium leading-relaxed">
             We are committed to enhancing machine learning and AI applications. With dedication to precision and quality, we empower businesses to develop groundbreaking solutions.
           </p>
         </motion.div>

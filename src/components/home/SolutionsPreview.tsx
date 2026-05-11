@@ -88,7 +88,7 @@ const SolutionsPreview = () => {
           </motion.span>
           <motion.h2 
             variants={fadeInUp}
-            className="text-2xl md:text-3xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none"
+            className="text-4xl md:text-5xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none"
           >
             AI Security for Every Environment
           </motion.h2>

@@ -71,18 +71,13 @@ const Navbar = () => {
   return (
     <div className="fixed top-2 md:top-6 left-0 w-full z-[100] px-4 md:px-6 pointer-events-none">
       <header className={cn(
-        "container-default mx-auto flex justify-between items-center px-4 md:px-6 py-2.5 md:py-3 rounded-full transition-all duration-700 ease-in-out pointer-events-auto",
-        isScrolled 
-          ? "bg-white/80 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.08)]" 
-          : "bg-white/40 backdrop-blur-md border border-white/10 shadow-sm"
+        "container-default mx-auto flex justify-between items-center px-4 md:px-8 py-2 md:py-2.5 rounded-full transition-all duration-700 ease-in-out pointer-events-auto",
+        "bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
       )}>
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 md:gap-3">
-          <img src="/images/zeex_ai_logo.png" alt="Zeex AI" className="w-8 h-8 md:w-10 md:h-10 object-contain rounded-lg shadow-sm" />
-          <span className={cn(
-            "font-black text-lg md:text-xl tracking-tighter uppercase transition-colors duration-300",
-            isScrolled ? "text-black" : "text-white"
-          )}>
+          <img src="/images/zeex_ai_logo.png" alt="Zeex AI" className="w-8 h-8 md:w-9 md:h-9 object-contain rounded-lg shadow-sm" />
+          <span className="font-black text-lg md:text-xl tracking-tighter uppercase text-[#0F172A]">
             ZEEX<span className="text-[#3b82f6]">AI</span>
           </span>
         </Link>
@@ -94,10 +89,8 @@ const Navbar = () => {
               <Link 
                 to={item.path}
                 className={cn(
-                  "font-bold uppercase tracking-widest text-[9px] transition-all duration-300 py-2",
-                  isScrolled 
-                    ? (location.pathname === item.path ? "text-black" : "text-gray-500 hover:text-black")
-                    : (location.pathname === item.path ? "text-white" : "text-white/60 hover:text-white")
+                  "font-black uppercase tracking-widest text-[10px] transition-all duration-300 py-1.5",
+                  location.pathname === item.path ? "text-[#3b82f6]" : "text-gray-500 hover:text-black"
                 )}
               >
                 {item.title}
@@ -115,8 +108,8 @@ const Navbar = () => {
                           {dropdownItem.icon}
                         </div>
                         <div>
-                          <div className="font-black text-[10px] uppercase tracking-widest text-black">{dropdownItem.title}</div>
-                          <div className="text-[9px] font-medium text-gray-400 mt-0.5">{dropdownItem.description}</div>
+                          <div className="font-black text-[12px] uppercase tracking-widest text-black">{dropdownItem.title}</div>
+                          <div className="text-[10px] font-medium text-gray-400 mt-0.5">{dropdownItem.description}</div>
                         </div>
                       </Link>
                     ))}
@@ -131,7 +124,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-4">
           <Link 
             to="/contact"
-            className="px-7 py-3 bg-black text-white font-black uppercase tracking-widest text-[9px] rounded-full transition-all hover:bg-gray-800 hover:shadow-lg active:scale-95 shadow-md"
+            className="px-6 py-2.5 bg-black text-white font-black uppercase tracking-widest text-[10px] rounded-full transition-all hover:bg-gray-800 hover:shadow-lg active:scale-95 shadow-md"
           >
             Get Demo
           </Link>

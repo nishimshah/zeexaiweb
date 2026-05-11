@@ -148,7 +148,7 @@ const Industries = () => {
           <span className="inline-block px-4 py-2 bg-white text-[#1E3A8A] rounded-md text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-6">
             DEPLOYMENT SECTORS
           </span>
-          <h2 className="text-4xl md:text-6xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter leading-none">
+          <h2 className="text-4xl md:text-5xl font-black text-[#0F172A] mb-8 uppercase tracking-tighter leading-none">
             Cross-Sector Intelligence
           </h2>
           <p className="text-xl text-[#475569] max-w-2xl mx-auto font-medium">
