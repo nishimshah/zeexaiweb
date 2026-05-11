@@ -75,9 +75,9 @@ const Navbar = () => {
         "bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
       )}>
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 md:gap-3">
-          <img src="/images/zeex_ai_logo.png" alt="Zeex AI" className="w-8 h-8 md:w-9 md:h-9 object-contain rounded-lg shadow-sm" />
-          <span className="font-black text-lg md:text-xl tracking-tighter uppercase text-[#0F172A]">
+        <Link to="/" className="flex items-center gap-1.5 md:gap-3">
+          <img src="/images/zeex_ai_logo.png" alt="Zeex AI" className="w-7 h-7 md:w-9 md:h-9 object-contain rounded-lg shadow-sm" />
+          <span className="font-black text-base md:text-xl tracking-tighter uppercase text-[#0F172A]">
             ZEEX<span className="text-[#3b82f6]">AI</span>
           </span>
         </Link>
