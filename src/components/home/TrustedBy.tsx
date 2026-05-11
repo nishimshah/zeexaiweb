@@ -21,64 +21,56 @@ const TrustedBy = () => {
     return () => observer.disconnect();
   }, [ref]);
 
-  // Exact 6 Partners from the reference site
+  // Real Partner Logos - Specific 6 Requested Partners
   const clients = [
-    { name: "NIRMAAN", logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png" },
-    { name: "AWS Partner Network", logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png" },
-    { name: "INDIAai", logo: "https://indiaai.gov.in/assets/images/indiaai-logo.svg" },
-    { name: "NVIDIA", logo: "https://mohyilabs.com/wp-content/uploads/2023/04/nvidia-inception-logo.png" },
-    { name: "AI IMPACT SUMMIT", logo: "https://i.ibb.co/vxbq8fkG/Whats-App-Image-2025-05-11-at-21-29-01-7dd79601-1.jpg" },
-    { name: "IIT MADRAS", logo: "https://www.iitm.ac.in/sites/default/files/iitm-logo.png" },
+    { name: "Nirmaan IITM", logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png" },
+    { name: "AWS Global Startups", logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png" },
+    { name: "IndiaAI", logo: "https://indiaai.gov.in/assets/images/logo.png" },
+    { name: "NVIDIA Inception", logo: "https://mohyilabs.com/wp-content/uploads/2023/04/nvidia-inception-logo.png" },
+    { name: "AI Impact Summit", logo: "https://www.indiaai.gov.in/images/ai-impact-summit.png" },
+    { name: "IIT Madras", logo: "https://www.iitm.ac.in/sites/default/files/iitm-logo.png" },
   ];
 
-  // Duplicated for seamless loop
-  const duplicatedClients = [...clients, ...clients, ...clients];
+  // Duplicated for seamless scroll
+  const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
 
   return (
-    <section className="py-32 bg-[#F8FAFC] relative overflow-hidden border-y border-[#E2E8F0]" ref={setRef}>
+    <section className="py-20 bg-[#F8FAFC] relative overflow-hidden border-y border-[#E2E8F0]" ref={setRef}>
       <div className="container-default px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <span className="inline-block px-5 py-2 bg-[#EEF2FF] text-[#4F46E5] rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-[#E0E7FF] mb-8">
-            TRUSTED PARTNERSHIPS
+          <span className="inline-block px-4 py-2 bg-white text-[#1E3A8A] rounded-md text-[10px] font-black uppercase tracking-widest border border-[#E2E8F0] mb-6">
+            Strategic Partnerships
           </span>
-          <h2 className="text-5xl md:text-7xl font-black text-[#0F172A] mb-6 uppercase tracking-tighter leading-none">
-            Supported by <span className="text-[#6366F1]">Industry Leaders</span>
+          <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-4 uppercase tracking-tighter leading-none">
+            Trusted by <span className="text-[#2563EB]">Global Partners</span>
           </h2>
-          <p className="text-lg md:text-xl text-[#475569] max-w-3xl mx-auto font-medium leading-relaxed opacity-80">
-            Our technology is recognized and supported by premier institutions and industry leaders.
-          </p>
         </motion.div>
 
         <div className="relative overflow-hidden group">
           {/* Professional Fading Edge Masks */}
-          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent z-20 pointer-events-none"></div>
-          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent z-20 pointer-events-none"></div>
 
-          <div className="flex animate-marquee items-center py-10 gap-8" style={{ width: 'max-content' }}>
+          <div className="flex animate-marquee items-center py-4 gap-20" style={{ width: 'max-content' }}>
             {duplicatedClients.map((client, index) => (
               <div
                 key={`${client.name}-${index}`}
-                className="flex-none"
+                className="flex-none flex items-center justify-center h-20"
               >
-                <div className="relative w-[220px] md:w-[280px] h-36 bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 flex items-center justify-center p-8 transition-all duration-500 hover:shadow-xl hover:border-blue-100 group/card">
-                  <img
-                    src={client.logo}
-                    alt={client.name}
-                    className="max-h-[70%] max-w-full object-contain transition-all duration-500"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      target.style.display = 'none';
-                      const span = target.parentElement?.querySelector('span') as HTMLElement;
-                      if (span) span.style.display = 'block';
-                    }}
-                  />
-                  <span className="hidden text-[10px] font-black text-gray-400 uppercase tracking-widest">{client.name}</span>
-                </div>
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  className="h-10 md:h-14 w-auto object-contain opacity-50 hover:opacity-100 transition-all duration-500 filter grayscale hover:grayscale-0 cursor-default"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                  }}
+                />
               </div>
             ))}
           </div>
