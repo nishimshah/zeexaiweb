@@ -236,7 +236,7 @@ const Solutions = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible pb-12 lg:pb-0 gap-10 snap-x snap-mandatory scrollbar-hide grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {solutions.map((solution, index) => (
               <motion.div 
                 key={solution.id}
@@ -244,7 +244,7 @@ const Solutions = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group h-full"
+                className="group flex-none w-[85vw] md:w-auto h-auto snap-center"
               >
                 <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-[#E2E8F0] overflow-hidden hover:border-[#2563EB] hover:shadow-2xl transition-all duration-500">
                   <div className="aspect-video relative overflow-hidden">
@@ -300,14 +300,14 @@ const Solutions = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible pb-12 lg:pb-0 gap-10 snap-x snap-mandatory scrollbar-hide grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: <Shield />, title: "Proactive Defense", desc: "Machine learning algorithms that predict and prevent incidents before they even happen." },
               { icon: <Video />, title: "Vision Intelligence", desc: "Industrial-grade video analysis that tracks threats across multiple angles and conditions." },
               { icon: <Database />, title: "Secure Infrastructure", desc: "Military-grade encryption securing all data with proprietary protection layers." },
               { icon: <Lock />, title: "Total Control", desc: "Granular access management and monitoring from any authorized mobile or desktop interface." }
             ].map((feature, idx) => (
-              <div key={idx} className="bg-white p-12 rounded-[2.5rem] border border-[#E2E8F0] shadow-xl hover:shadow-2xl hover:border-[#2563EB] transition-all group">
+              <div key={idx} className="bg-white p-12 rounded-[2.5rem] border border-[#E2E8F0] shadow-xl hover:shadow-2xl hover:border-[#2563EB] transition-all group flex-none w-[80vw] md:w-auto snap-center">
                 <div className="w-16 h-16 rounded-2xl bg-[#F4F7FB] text-[#2563EB] flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
                   {React.cloneElement(feature.icon as React.ReactElement, { size: 32 })}
                 </div>
