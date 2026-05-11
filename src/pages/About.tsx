@@ -189,19 +189,33 @@ const About = () => {
                   className="w-full h-[600px] object-cover rounded-[1.8rem] transition-transform duration-700 group-hover:scale-[1.02]"
                 />
                 
-                {/* Enhanced Top-Middle HUD Caption */}
-                <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20 w-[90%] md:w-auto">
-                  <div className="bg-[#070B12]/60 backdrop-blur-md px-10 py-6 rounded-full border border-white/10 shadow-2xl flex flex-col md:flex-row items-center gap-6 transform transition-all duration-500 group-hover:translate-y-2 group-hover:bg-[#070B12]/80">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                      <div className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em] whitespace-nowrap">Mumbai Innovation Hub</div>
-                    </div>
-                    <div className="hidden md:block w-[1px] h-8 bg-white/10" />
-                    <div className="text-xl font-black text-white uppercase tracking-tighter whitespace-nowrap">THE CORE TEAM</div>
-                    <div className="hidden md:block w-[1px] h-8 bg-white/10" />
-                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest max-w-[200px] text-center md:text-left leading-tight">
-                      Engineering the future of <br />industrial intelligence
-                    </p>
+                {/* Top Shadow Gradient Overlay with Text */}
+                <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#070B12]/80 via-[#070B12]/40 to-transparent z-20 pointer-events-none rounded-t-[1.8rem]">
+                  <div className="container mx-auto px-12 py-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8 }}
+                    >
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+                        <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Mumbai Innovation Hub</span>
+                      </div>
+                      <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">THE CORE TEAM</h3>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="hidden md:block"
+                    >
+                      <p className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] max-w-[250px] leading-relaxed border-l border-white/20 pl-6">
+                        Engineering the next generation of <br />industrial intelligence
+                      </p>
+                    </motion.div>
                   </div>
                 </div>
 
