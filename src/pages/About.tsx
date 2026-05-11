@@ -172,56 +172,61 @@ const About = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Team Photo */}
+          <div className="max-w-5xl mx-auto">
+            {/* Team Photo - Enhanced Cinematic Look */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.98, y: 30 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="lg:col-span-8 relative group"
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative group"
             >
-              <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 bg-gray-50 p-2">
+              <div className="rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 bg-white p-3 relative">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070B12]/40 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <img 
-                  src="https://images.unsplash.com/photo-1522071823991-b9671f9d7f1c?w=1200&auto=format&fit=crop&q=80" 
+                  src="/images/team/team-photo.jpg" 
                   alt="ZeexAI Team" 
-                  className="w-full h-[500px] object-cover rounded-[2rem]"
+                  className="w-full h-[600px] object-cover rounded-[1.8rem] transition-transform duration-700 group-hover:scale-[1.02]"
                 />
+                
+                {/* Floating HUD-style Caption */}
+                <div className="absolute bottom-12 left-12 z-20 bg-[#070B12]/80 backdrop-blur-xl px-10 py-8 rounded-3xl border border-white/10 shadow-2xl transform transition-all duration-500 group-hover:translate-y-[-10px]">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-10 h-[2px] bg-blue-500" />
+                    <div className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Mumbai Workspace</div>
+                  </div>
+                  <div className="text-3xl font-black text-white uppercase tracking-tighter leading-none mb-4">THE CORE TEAM</div>
+                  <p className="text-gray-400 text-sm font-medium max-w-xs leading-relaxed">
+                    Engineering the next generation of industrial intelligence from our new Mumbai innovation hub.
+                  </p>
+                </div>
+
+                {/* Decorative Tech Corners */}
+                <div className="absolute top-8 right-8 w-12 h-12 border-t-2 border-r-2 border-blue-500/30 rounded-tr-xl pointer-events-none" />
+                <div className="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-blue-500/30 rounded-bl-xl pointer-events-none invisible group-hover:visible" />
               </div>
-              <div className="absolute bottom-10 left-10 bg-white/90 backdrop-blur-md px-8 py-6 rounded-2xl border border-white shadow-2xl">
-                <div className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Mumbai Workspace</div>
-                <div className="text-xl font-black text-[#0F172A] uppercase tracking-tighter">THE CORE TEAM</div>
+
+              {/* Founder Names Floating (Optional Micro-interaction) */}
+              <div className="mt-12 flex flex-wrap justify-center gap-12">
+                {[
+                  { name: "Gaurav Yadav", role: "Founder & CEO" },
+                  { name: "Sujit Laware", role: "CTO" },
+                  { name: "Sanidhya Kanhere", role: "CBO" },
+                  { name: "Tarun Gangwar", role: "COO" }
+                ].map((m, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.5 + (i * 0.1) }}
+                    className="text-center"
+                  >
+                    <div className="text-lg font-black text-[#0F172A] uppercase tracking-tight mb-1">{m.name}</div>
+                    <div className="text-[9px] font-black text-blue-600 uppercase tracking-widest">{m.role}</div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
-
-            {/* Founder Info */}
-            <div className="lg:col-span-4 space-y-8">
-              {[
-                { name: "Gaurav Yadav", role: "Founder & CEO", linkedIn: "#" },
-                { name: "Sujit Laware", role: "CTO", linkedIn: "#" },
-                { name: "Sanidhya Kanhere", role: "CBO", linkedIn: "#" }
-              ].map((m, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="flex items-center gap-6 p-6 rounded-2xl border border-gray-50 hover:bg-[#F8FAFC] transition-all"
-                >
-                  <div className="w-16 h-16 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xl">
-                    {m.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-black text-[#0F172A] uppercase tracking-tight leading-none mb-1">{m.name}</h3>
-                    <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{m.role}</p>
-                  </div>
-                  <a href={m.linkedIn} className="ml-auto w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:shadow-md transition-all">
-                    <Linkedin size={16} />
-                  </a>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

@@ -227,8 +227,8 @@ const Index = () => {
   return (
     <Layout>
       <SEO 
-        title="ZeexAI" 
-        description="Transforming insights into action. Zeex AI turns everyday data into actionable intelligence for safer, smarter management."
+        title="ZeexAI — Industrial AI for Safety & Operations" 
+        description="Zeex AI deploys real-time computer vision and predictive intelligence across factories, energy and infrastructure — turning every camera into a safety officer."
       />
       <div className="overflow-hidden bg-white">
         <Hero />
