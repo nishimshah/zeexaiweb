@@ -224,26 +224,6 @@ const About = () => {
                 <div className="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-blue-500/30 rounded-bl-xl pointer-events-none invisible group-hover:visible" />
               </div>
 
-              {/* Founder Names Floating (Optional Micro-interaction) */}
-              <div className="mt-12 flex flex-wrap justify-center gap-12">
-                {[
-                  { name: "Gaurav Yadav", role: "Founder & CEO" },
-                  { name: "Sujit Laware", role: "CTO" },
-                  { name: "Sanidhya Kanhere", role: "CBO" },
-                  { name: "Tarun Gangwar", role: "COO" }
-                ].map((m, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.5 + (i * 0.1) }}
-                    className="text-center"
-                  >
-                    <div className="text-lg font-black text-[#0F172A] uppercase tracking-tight mb-1">{m.name}</div>
-                    <div className="text-[9px] font-black text-blue-600 uppercase tracking-widest">{m.role}</div>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </div>
