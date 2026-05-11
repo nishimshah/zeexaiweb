@@ -160,12 +160,13 @@ const Industries = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
+          className="flex md:grid overflow-x-auto md:overflow-x-visible pb-10 md:pb-0 gap-4 snap-x snap-mandatory scrollbar-hide grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
         >
           {industries.map((industry, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
+              className="min-w-[80vw] md:min-w-0 snap-center"
             >
               <Link
                 to={industry.link}

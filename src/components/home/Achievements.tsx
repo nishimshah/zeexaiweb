@@ -260,7 +260,7 @@ const Achievements = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            className="flex md:grid overflow-x-auto md:overflow-x-visible pb-8 md:pb-0 gap-6 snap-x snap-mandatory scrollbar-hide md:grid-cols-2 xl:grid-cols-3"
           >
             {filtered.map((item, i) => (
               <motion.div
@@ -268,7 +268,7 @@ const Achievements = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col"
+                className="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center"
               >
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden bg-gray-100 flex-shrink-0">

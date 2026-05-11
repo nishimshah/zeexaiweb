@@ -100,12 +100,12 @@ const SolutionsPreview = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="flex md:grid overflow-x-auto md:overflow-x-visible pb-10 md:pb-0 gap-4 snap-x snap-mandatory scrollbar-hide grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {solutionCards.map((card) => (
             <Link 
               key={card.id}
               to={card.link}
-              className="relative aspect-[3/4] rounded-2xl overflow-hidden group shadow-lg"
+              className="relative flex-none w-[80vw] md:w-auto aspect-[3/4] rounded-2xl overflow-hidden group shadow-lg snap-center"
             >
               {/* Image with overlay */}
               <div className="absolute inset-0 z-0">
