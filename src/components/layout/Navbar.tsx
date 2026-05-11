@@ -69,9 +69,9 @@ const Navbar = () => {
   }, [mobileMenuOpen]);
 
   return (
-    <div className="fixed top-2 md:top-6 left-0 w-full z-[100] px-4 md:px-6 pointer-events-none">
+    <div className="fixed top-2 md:top-6 left-0 w-full z-[100] px-2 md:px-6 pointer-events-none">
       <header className={cn(
-        "container-default mx-auto flex justify-between items-center px-4 md:px-8 py-2 md:py-2.5 rounded-full transition-all duration-700 ease-in-out pointer-events-auto",
+        "container-default mx-auto flex justify-between items-center px-3 md:px-8 py-2 md:py-2.5 rounded-full transition-all duration-700 ease-in-out pointer-events-auto",
         "bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
       )}>
         {/* Logo */}

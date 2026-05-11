@@ -289,8 +289,8 @@ const Careers: React.FC = () => {
             >
               JOIN THE AI REVOLUTION
             </motion.div>
-            <h1 className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight uppercase tracking-tighter">
-              BUILD THE FUTURE OF <br /><span className="text-[#2563EB]">AI SECURITY</span>
+            <h1 className="text-3xl sm:text-5xl md:text-8xl font-black text-white mb-6 md:mb-8 leading-[1.1] uppercase tracking-tighter px-2">
+              BUILD THE FUTURE OF <br className="hidden sm:block" /><span className="text-[#2563EB]">AI SECURITY</span>
             </h1>
             <p className="text-xl text-white/70 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
               We're building mission-critical intelligence. Join a team of visionaries dedicated to industrial-grade AI excellence.
