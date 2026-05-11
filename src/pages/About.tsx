@@ -186,23 +186,23 @@ const About = () => {
                 <img 
                   src="/images/team/team-photo.jpg" 
                   alt="ZeexAI Team" 
-                  className="w-full h-[600px] object-cover rounded-[1.8rem] transition-transform duration-700 group-hover:scale-[1.02]"
+                  className="w-full h-[400px] md:h-[600px] object-cover rounded-[1.8rem] transition-transform duration-700 group-hover:scale-[1.02]"
                 />
                 
                 {/* Top Shadow Gradient Overlay with Text */}
-                <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#070B12]/80 via-[#070B12]/40 to-transparent z-20 pointer-events-none rounded-t-[1.8rem]">
-                  <div className="container mx-auto px-12 py-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#070B12]/90 via-[#070B12]/50 to-transparent z-20 pointer-events-none rounded-t-[1.8rem]">
+                  <div className="container mx-auto px-6 md:px-12 py-8 md:py-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8 }}
                     >
-                      <div className="flex items-center gap-3 mb-2">
+                      <div className="flex items-center gap-2 md:gap-3 mb-2">
                         <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-                        <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Mumbai Innovation Hub</span>
+                        <span className="text-[9px] md:text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Mumbai Innovation Hub</span>
                       </div>
-                      <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">THE CORE TEAM</h3>
+                      <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter leading-none">THE CORE TEAM</h3>
                     </motion.div>
                     
                     <motion.div
