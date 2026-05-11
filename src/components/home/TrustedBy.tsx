@@ -21,47 +21,21 @@ const TrustedBy = () => {
     return () => observer.disconnect();
   }, [ref]);
 
-  // Real Partner Logos - Standardized for high-end look
+  // Real Partner Logos - Replicating the 'Exact Trail' from About page
   const clients = [
-    {
-      name: "IIT Madras",
-      logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/512px-IIT_Madras_Logo.svg.png"
-    },
-    {
-      name: "Nirmaan IITM",
-      logo: "https://raw.githubusercontent.com/Nirmaan-IITM/nirmaan-iitm.github.io/master/assets/img/logo.png"
-    },
-    {
-      name: "AWS Startups",
-      logo: "https://preditrix.ai/wp-content/uploads/2025/04/aws-n.png"
-    },
-    {
-      name: "NVIDIA Inception",
-      logo: "https://mohyilabs.com/wp-content/uploads/2023/04/nvidia-inception-logo.png"
-    },
-    {
-      name: "Bosch",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Bosch-logo.svg/1024px-Bosch-logo.svg.png"
-    },
-    {
-      name: "MeitY",
-      logo: "https://www.digitalindia.gov.in/sites/all/themes/di_theme/logo.png"
-    },
-    {
-      name: "T-Hub",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/40/T-Hub_Logo-PNG.png"
-    },
-    {
-      name: "Startup India",
-      logo: "https://www.uxdt.nic.in/wp-content/uploads/2020/06/Startup-India_Preview.png"
-    }
+    { name: "IIT Madras", logo: "https://www.iitm.ac.in/sites/default/files/iitm-logo.png" },
+    { name: "Nirmaan IITM", logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png" },
+    { name: "AWS Startups", logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png" },
+    { name: "NVIDIA Inception", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQyI3Qf_YPBBh5ZVZxIg3YpbKpQYuIdZfg9A&s" },
+    { name: "Ministry of IT", logo: "https://www.meity.gov.in/sites/default/files/meity_logo.png" },
+    { name: "T-Hub", logo: "https://t-hub.co/wp-content/uploads/2021/11/logo.png" },
   ];
 
   // Perfectly duplicated for seamless scroll
   const duplicatedClients = [...clients, ...clients, ...clients];
 
   return (
-    <section className="py-20 bg-[#F8FAFC] relative overflow-hidden border-y border-[#E2E8F0]" ref={setRef}>
+    <section className="py-24 bg-[#F8FAFC] relative overflow-hidden border-y border-[#E2E8F0]" ref={setRef}>
       <div className="container-default px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -85,24 +59,28 @@ const TrustedBy = () => {
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent z-20 pointer-events-none"></div>
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent z-20 pointer-events-none"></div>
 
-          <div className="flex animate-marquee items-center py-4" style={{ width: 'max-content' }}>
+          <div className="flex animate-marquee items-center py-8 gap-6" style={{ width: 'max-content' }}>
             {duplicatedClients.map((client, index) => (
               <div
                 key={`${client.name}-${index}`}
-                className="flex-shrink-0 flex items-center justify-center px-12 md:px-24 transition-all duration-700"
+                className="flex-none"
               >
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="h-10 md:h-12 w-auto object-contain opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    target.style.display = 'none';
-                    const span = target.nextElementSibling as HTMLElement;
-                    if (span) span.style.display = 'block';
-                  }}
-                />
-                <span className="hidden text-[11px] font-black text-gray-400 uppercase tracking-widest">{client.name}</span>
+                <div className="relative w-[180px] md:w-[220px] h-28 bg-white rounded-[1.5rem] shadow-sm border border-gray-100 flex flex-col items-center justify-center p-6 transition-all duration-500 hover:shadow-xl hover:border-blue-100 group/card">
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    className="max-h-[50%] max-w-full object-contain transition-all duration-500"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      target.style.display = 'none';
+                      const span = target.nextElementSibling as HTMLElement;
+                      if (span) span.style.display = 'block';
+                    }}
+                  />
+                  <span className="mt-3 text-[9px] font-black text-[#2563EB]/50 uppercase tracking-widest group-hover/card:text-[#2563EB] transition-colors">
+                    {client.name}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

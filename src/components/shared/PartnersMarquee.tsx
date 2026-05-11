@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const partners = [
-  { id: 1, name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/512px-IIT_Madras_Logo.svg.png" },
+  { id: 1, name: "IIT Madras", logo: "https://www.iitm.ac.in/sites/default/files/iitm-logo.png" },
   { id: 2, name: "Nirmaan IITM", logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png" },
   { id: 3, name: "AWS Startups", logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png" },
   { id: 4, name: "NVIDIA Inception", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQyI3Qf_YPBBh5ZVZxIg3YpbKpQYuIdZfg9A&s" },
-  { id: 5, name: "Ministry of IT", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Emblem_of_India.svg/200px-Emblem_of_India.svg.png" },
+  { id: 5, name: "Ministry of IT", logo: "https://www.meity.gov.in/sites/default/files/meity_logo.png" },
   { id: 6, name: "T-Hub", logo: "https://t-hub.co/wp-content/uploads/2021/11/logo.png" },
 ];
 
