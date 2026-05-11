@@ -21,7 +21,7 @@ const TrustedBy = () => {
     return () => observer.disconnect();
   }, [ref]);
 
-  // Real Partner Logos - Specific 6 Requested Partners (Local Reliable Assets)
+  // Real Partner Logos - Specific 6 Requested Partners (Permanent Local Assets)
   const clients = [
     { name: "Nirmaan IITM", logo: "/images/partners/nirmaan.png" },
     { name: "AWS Global Startups", logo: "/images/partners/aws.png" },
