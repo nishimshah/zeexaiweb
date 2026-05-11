@@ -23,12 +23,12 @@ const TrustedBy = () => {
 
   // Real Partner Logos - Specific 6 Requested Partners (Permanent Local Assets)
   const clients = [
-    { name: "Nirmaan IITM", logo: "/images/partners/nirmaan.png" },
-    { name: "AWS Global Startups", logo: "/images/partners/aws.png" },
-    { name: "IndiaAI", logo: "/images/partners/india-ai.png" },
-    { name: "NVIDIA Inception", logo: "/images/partners/nvidia.png" },
-    { name: "AI Impact Summit", logo: "/images/partners/ai-impact.png" },
-    { name: "IIT Madras", logo: "/images/partners/iit-madras.png" },
+    { name: "Nirmaan IITM", logo: "/images/partners/nirmaan.jpg" },
+    { name: "AWS Global Startups", logo: "/images/partners/aws.jpg" },
+    { name: "IndiaAI", logo: "/images/partners/india-ai.jpg" },
+    { name: "NVIDIA Inception", logo: "/images/partners/nvidia.jpg" },
+    { name: "AI Impact Summit", logo: "/images/partners/ai-impact.jpg" },
+    { name: "IIT Madras", logo: "/images/partners/iit-madras.jpg" },
   ];
 
   // Duplicated 3 times for seamless 33.33% scroll loop
