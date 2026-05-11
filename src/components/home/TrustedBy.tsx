@@ -21,18 +21,18 @@ const TrustedBy = () => {
     return () => observer.disconnect();
   }, [ref]);
 
-  // Real Partner Logos - Specific 6 Requested Partners
+  // Real Partner Logos - Specific 6 Requested Partners (Reliable URLs)
   const clients = [
     { name: "Nirmaan IITM", logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png" },
     { name: "AWS Global Startups", logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png" },
-    { name: "IndiaAI", logo: "https://indiaai.gov.in/assets/images/logo.png" },
-    { name: "NVIDIA Inception", logo: "https://mohyilabs.com/wp-content/uploads/2023/04/nvidia-inception-logo.png" },
-    { name: "AI Impact Summit", logo: "https://www.indiaai.gov.in/images/ai-impact-summit.png" },
-    { name: "IIT Madras", logo: "https://www.iitm.ac.in/sites/default/files/iitm-logo.png" },
+    { name: "IndiaAI", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/IndiaAI_logo.png/640px-IndiaAI_logo.png" },
+    { name: "NVIDIA Inception", logo: "https://www.nvidia.com/content/dam/en-zz/Solutions/deep-learning/inception/nvidia-inception-logo-rgb-950-p.png" },
+    { name: "AI Impact Summit", logo: "https://static.wixstatic.com/media/7b749d_48f7669d0d354e179e6f3d1b9b9a6a8c~mv2.png" },
+    { name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" },
   ];
 
-  // Duplicated for seamless scroll
-  const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
+  // Duplicated 3 times for seamless 33.33% scroll loop
+  const duplicatedClients = [...clients, ...clients, ...clients];
 
   return (
     <section className="py-20 bg-[#F8FAFC] relative overflow-hidden border-y border-[#E2E8F0]" ref={setRef}>
@@ -66,10 +66,6 @@ const TrustedBy = () => {
                   src={client.logo}
                   alt={client.name}
                   className="h-10 md:h-14 w-auto object-contain opacity-50 hover:opacity-100 transition-all duration-500 filter grayscale hover:grayscale-0 cursor-default"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    target.style.display = 'none';
-                  }}
                 />
               </div>
             ))}
@@ -80,10 +76,10 @@ const TrustedBy = () => {
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          100% { transform: translateX(-33.333333%); }
         }
         .animate-marquee {
-          animation: marquee 25s linear infinite;
+          animation: marquee 12s linear infinite;
         }
         .group:hover .animate-marquee {
           animation-play-state: paused;
