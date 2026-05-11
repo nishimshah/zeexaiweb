@@ -21,14 +21,14 @@ const TrustedBy = () => {
     return () => observer.disconnect();
   }, [ref]);
 
-  // Real Partner Logos - Specific 6 Requested Partners (Reliable URLs)
+  // Real Partner Logos - Specific 6 Requested Partners (Local Reliable Assets)
   const clients = [
-    { name: "Nirmaan IITM", logo: "https://nirmaan.iitm.ac.in/static/media/nirmaan%20logo.8b8518964b925a2a2d57.png" },
-    { name: "AWS Global Startups", logo: "https://pages.awscloud.com/rs/112-TZM-766/images/SU%20Programs%402x.png" },
-    { name: "IndiaAI", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/IndiaAI_logo.png/640px-IndiaAI_logo.png" },
-    { name: "NVIDIA Inception", logo: "https://www.nvidia.com/content/dam/en-zz/Solutions/deep-learning/inception/nvidia-inception-logo-rgb-950-p.png" },
-    { name: "AI Impact Summit", logo: "https://static.wixstatic.com/media/7b749d_48f7669d0d354e179e6f3d1b9b9a6a8c~mv2.png" },
-    { name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png" },
+    { name: "Nirmaan IITM", logo: "/images/partners/nirmaan.png" },
+    { name: "AWS Global Startups", logo: "/images/partners/aws.png" },
+    { name: "IndiaAI", logo: "/images/partners/india-ai.png" },
+    { name: "NVIDIA Inception", logo: "/images/partners/nvidia.png" },
+    { name: "AI Impact Summit", logo: "/images/partners/ai-impact.png" },
+    { name: "IIT Madras", logo: "/images/partners/iit-madras.png" },
   ];
 
   // Duplicated 3 times for seamless 33.33% scroll loop
@@ -65,7 +65,7 @@ const TrustedBy = () => {
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="h-10 md:h-14 w-auto object-contain opacity-50 hover:opacity-100 transition-all duration-500 filter grayscale hover:grayscale-0 cursor-default"
+                  className="h-10 md:h-14 w-auto object-contain transition-all duration-500 cursor-default"
                 />
               </div>
             ))}
