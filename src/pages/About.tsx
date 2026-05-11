@@ -189,16 +189,20 @@ const About = () => {
                   className="w-full h-[600px] object-cover rounded-[1.8rem] transition-transform duration-700 group-hover:scale-[1.02]"
                 />
                 
-                {/* Floating HUD-style Caption */}
-                <div className="absolute bottom-12 left-12 z-20 bg-[#070B12]/80 backdrop-blur-xl px-10 py-8 rounded-3xl border border-white/10 shadow-2xl transform transition-all duration-500 group-hover:translate-y-[-10px]">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-10 h-[2px] bg-blue-500" />
-                    <div className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Mumbai Workspace</div>
+                {/* Enhanced Top-Middle HUD Caption */}
+                <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20 w-[90%] md:w-auto">
+                  <div className="bg-[#070B12]/60 backdrop-blur-md px-10 py-6 rounded-full border border-white/10 shadow-2xl flex flex-col md:flex-row items-center gap-6 transform transition-all duration-500 group-hover:translate-y-2 group-hover:bg-[#070B12]/80">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                      <div className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em] whitespace-nowrap">Mumbai Innovation Hub</div>
+                    </div>
+                    <div className="hidden md:block w-[1px] h-8 bg-white/10" />
+                    <div className="text-xl font-black text-white uppercase tracking-tighter whitespace-nowrap">THE CORE TEAM</div>
+                    <div className="hidden md:block w-[1px] h-8 bg-white/10" />
+                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest max-w-[200px] text-center md:text-left leading-tight">
+                      Engineering the future of <br />industrial intelligence
+                    </p>
                   </div>
-                  <div className="text-3xl font-black text-white uppercase tracking-tighter leading-none mb-4">THE CORE TEAM</div>
-                  <p className="text-gray-400 text-sm font-medium max-w-xs leading-relaxed">
-                    Engineering the next generation of industrial intelligence from our new Mumbai innovation hub.
-                  </p>
                 </div>
 
                 {/* Decorative Tech Corners */}
